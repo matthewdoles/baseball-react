@@ -1,16 +1,15 @@
 .App {
   padding: 20px;
   text-align: center;
-  background-color: rgba(0,45,114, 0.9);
+  background-color: rgba(	237, 238, 240);
 }
 
 .TeamCard {
-  width: 20%;
+  width: 15%;
   display: inline-flex !important;
-  margin: 15px;
+  margin: 7px;
   border: none !important;
   border-radius: 25px;
-  box-shadow: inset -1px -1px 5px 4px rgba(0, 0, 0, .3);
 }
 
 .TeamCardBody {
