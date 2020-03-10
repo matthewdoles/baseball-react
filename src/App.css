@@ -1,5 +1,30 @@
 .App {
+  padding: 20px;
   text-align: center;
+  background-color: rgba(0,45,114, 0.9);
+}
+
+.TeamCard {
+  width: 20%;
+  display: inline-flex !important;
+  margin: 15px;
+  border: none !important;
+  border-radius: 25px;
+  box-shadow: inset -1px -1px 5px 4px rgba(0, 0, 0, .3);
+}
+
+.TeamCardBody {
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.TeamItem {
+  float: right;
+  width: 100%;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 25px;
+  border: 1px solid black;
 }
 
 .App-logo {
