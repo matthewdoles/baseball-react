@@ -1,21 +1,24 @@
+
 .TeamCard {
   width: 15%;
   display: inline-flex !important;
   margin: 7px;
   border: none !important;
-  border-radius: 25px;
+  border-radius: 25px !important;
+}
+
+.TeamCardImage {
+  width: 90%;
+  height: 270px;
+  padding: 15px;
+  margin: auto;
+  border-top-left-radius: 25px !important;
+  border-top-right-radius: 25px !important;
+
 }
 
 .TeamCardBody {
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
-}
-
-.TeamItem {
-  float: right;
-  width: 100%;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 25px;
-  border: 1px solid black;
+  border-bottom-left-radius: 25px !important;
+  border-bottom-right-radius: 25px !important;
+  background-color: white;
 }
