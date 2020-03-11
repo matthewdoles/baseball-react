@@ -12,7 +12,7 @@ const TeamCard = props => {
     <Card className="TeamCard">
       <Card.Img
         variant="top"
-        src={CubsLogo}
+        src={require( `${ props.logo }` )}
         style={{
           width: '90%',
           height: '250px',
@@ -22,7 +22,7 @@ const TeamCard = props => {
       />
       <Card.Body className="TeamCardBody">
         <Card.Title>{props.name}</Card.Title>
-        <Card.Text>Est. ???</Card.Text>
+        <Card.Text>Est. {props.est}</Card.Text>
       </Card.Body>
     </Card>
   );

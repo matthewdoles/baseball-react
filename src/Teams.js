@@ -20,15 +20,16 @@ const Teams = () => {
 
   return (
     <React.Fragment>
-      {isLoading && (
-        <div>
-          Loading...
-        </div>
-      )}
+      {isLoading && <div>Loading...</div>}
       {!isLoading && loadedTeams && (
         <ul className="users-list">
           {loadedTeams.map(team => (
-            <TeamCard key={team.Id} name={team.Name} />
+            <TeamCard
+              key={team.id}
+              name={team.name}
+              est={team.established}
+              logo={'./images/' + team.photo}
+            />
           ))}
         </ul>
       )}
