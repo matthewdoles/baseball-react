@@ -14,6 +14,7 @@
   height: 100%;
   float: left;
   margin-right: 2%;
+  margin-left: 1%;
 }
 
 .TeamListItem .ItemName {
@@ -22,6 +23,7 @@
 
 .TeamListItem .ItemLeague {
   float: right;
+  margin-right: 1%;
 }
 
 .AffiliateList {

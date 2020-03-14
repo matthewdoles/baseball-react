@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import "./TeamHierarchy.css";
 
@@ -6,7 +6,7 @@ const TeamHierarchy = props => {
   return (
     <React.Fragment>
         <div key={props.id} className="TeamListItem">
-          <img src={require(`${props.logo}`)} />
+          <img src={require(`${props.logo}`)} alt="" />
           <span className="ItemName">{props.name}</span>
           <span className="ItemLeague">{props.league}</span>
         </div>
@@ -16,6 +16,7 @@ const TeamHierarchy = props => {
               key={affiliate.id}
               className={`TeamListItem AffiliateItem ${affiliate.league.replace('+', '')}`}
             >
+              <img src={require(`./images/${affiliate.photo}`)} alt="" />
               <span className="ItemName">{affiliate.name}</span>
               <span className="ItemLeague">{affiliate.league}</span>
             </div>

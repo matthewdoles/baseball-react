@@ -9,25 +9,18 @@ import "./Teams.css";
 const Teams = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [allTeams, setAllTeams] = useState();
-  const [allAffiliates, setAllAffiliates] = useState();
+  const [allAffiliates, setAllAffiliates] = useState(null);
   const [loadedTeams, setLoadedTeams] = useState();
+  const [showHierarchyView, setShowHierarchyView] = useState(false);
   useEffect(() => {
-    // const fetchTeams = async () => {
-    //   try {
-    //     const responseData = await sendRequest("http://localhost:5000/teams");
-    //     setAllTeams(responseData.teams);
-    //     setLoadedTeams(responseData.teams);
-    //   } catch (error) {}
-    // };
-    // fetchTeams();
-    const fetchAffiliates = async () => {
+    const fetchTeams = async () => {
       try {
-        const responseData = await sendRequest("http://localhost:5000/teams/affiliates");
-        setAllAffiliates(responseData.teams);
+        const responseData = await sendRequest("http://localhost:5000/teams");
+        setAllTeams(responseData.teams);
         setLoadedTeams(responseData.teams);
       } catch (error) {}
     };
-    fetchAffiliates();
+    fetchTeams();
   }, [sendRequest]);
 
   const onNameChange = async event => {
@@ -49,22 +42,26 @@ const Teams = () => {
     setLoadedTeams(teams.sort((a, b) => a.established - b.established));
   };
 
+  const onToggleHierarchyView = async () => {
+    if (allAffiliates === null) {
+      try {
+        const responseData = await sendRequest(
+          "http://localhost:5000/teams/affiliates"
+        );
+        setAllAffiliates(responseData.teams);
+        setLoadedTeams(responseData.teams);
+      } catch (error) {}
+    }
+    setShowHierarchyView(!showHierarchyView);
+  };
+
   return (
     <React.Fragment>
-      <div className="SearchControls">
-        <InputGroup className="TeamSearch">
-          <InputGroup.Prepend>
-            <InputGroup.Text>Team</InputGroup.Text>
-          </InputGroup.Prepend>
-          <FormControl onChange={onNameChange} />
-        </InputGroup>
-        <ButtonGroup className="SearchButtons">
-          <Button onClick={onFilterAlphabetical}>Alphabetical</Button>
-          <Button onClick={onFilterEstablished}>Established</Button>
-        </ButtonGroup>
-      </div>
+      <Button variant="primary" onClick={onToggleHierarchyView}>
+        Toggle
+      </Button>
       {isLoading && <div>loading...</div>}
-      {!isLoading && loadedTeams && (
+      {!isLoading && loadedTeams && showHierarchyView && (
         <ul className="TeamList">
           {loadedTeams.map(team => (
             <TeamHierarchy
@@ -77,18 +74,32 @@ const Teams = () => {
           ))}
         </ul>
       )}
-      {!isLoading && loadedTeams && (
-        <ul className="TeamList">
-          {loadedTeams.map(team => (
-            <TeamCard
-              key={team.id}
-              name={team.name}
-              est={team.established}
-              logo={"./images/" + team.photo}
-              color={team.photoColor}
-            />
-          ))}
-        </ul>
+      {!isLoading && loadedTeams && !showHierarchyView && (
+        <React.Fragment>
+          <div className="SearchControls">
+            <InputGroup className="TeamSearch">
+              <InputGroup.Prepend>
+                <InputGroup.Text>Team</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl onChange={onNameChange} />
+            </InputGroup>
+            <ButtonGroup className="SearchButtons">
+              <Button onClick={onFilterAlphabetical}>Alphabetical</Button>
+              <Button onClick={onFilterEstablished}>Established</Button>
+            </ButtonGroup>
+          </div>
+          <ul className="TeamList">
+            {loadedTeams.map(team => (
+              <TeamCard
+                key={team.id}
+                name={team.name}
+                est={team.established}
+                logo={"./images/" + team.photo}
+                color={team.photoColor}
+              />
+            ))}
+          </ul>
+        </React.Fragment>
       )}
     </React.Fragment>
   );
