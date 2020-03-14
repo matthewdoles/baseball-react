@@ -27,3 +27,13 @@
   color: black !important;
   box-shadow: none;
 }
+
+@media only screen and (min-width: 500px) and (max-width : 650px) {
+  .SearchButtons button {
+    display: none;;
+  }
+  .TeamSearch {
+    width: 80% !important;
+    padding: 10px;
+  }
+}

@@ -1,4 +1,3 @@
-
 .TeamCard {
   width: 15%;
   display: inline-flex !important;
@@ -14,11 +13,55 @@
   margin: auto;
   border-top-left-radius: 25px !important;
   border-top-right-radius: 25px !important;
-
 }
 
 .TeamCardBody {
   border-bottom-left-radius: 25px !important;
   border-bottom-right-radius: 25px !important;
   background-color: white;
+}
+
+@media only screen and (min-width: 1824px) {
+  /* Styles */
+}
+
+@media only screen and (min-width: 1300px) and (max-width : 1700px) {
+  .TeamCard {
+    width: 20%;
+  }
+}
+
+@media only screen and (min-width: 1100px) and (max-width : 1300px) {
+  .TeamCard {
+    width: 25%;
+  }
+}
+
+@media only screen and (min-width: 875px) and (max-width : 1100px) {
+  .TeamCard {
+    width: 30%;
+  }
+}
+
+@media only screen and (min-width: 650px) and (max-width : 875px) {
+  .TeamCard {
+    width: 40%;
+  }
+
+}
+
+@media only screen and (min-width: 500px) and (max-width : 650px) {
+  .TeamCard {
+    width: 35%;
+  }
+  .TeamCardImage {
+    height: 160px;
+  }
+  .TeamCardBody {
+    display: none;
+  }
+  .TeamCardImage {
+    border-bottom-left-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
+  }
 }
