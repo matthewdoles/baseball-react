@@ -3,8 +3,27 @@
   padding: 0px;
 }
 
-.TeamSearch {
-  width: 30% !important;
+.SearchControls {
+  display: flex;
   margin: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.TeamSearch {
+  width: 40% !important;
   padding: 10px;
+}
+
+.SearchButtons button {
+  background-color: #e9ecef !important;
+  border: 1px solid #ced4da !important;
+  color: black;
+}
+
+.SearchButtons button:active,
+.SearchButtons button:focus,
+.SearchButtons button:hover {
+  color: black !important;
+  box-shadow: none;
 }

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import TeamCard from './TeamCard';
-import { InputGroup, FormControl } from 'react-bootstrap';
-import { useHttpClient } from './hooks/http-hook';
-import './Teams.css';
+import TeamCard from "./TeamCard";
+import { InputGroup, FormControl, Button, ButtonGroup } from "react-bootstrap";
+import { useHttpClient } from "./hooks/http-hook";
+import "./Teams.css";
 
 const Teams = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -12,7 +12,7 @@ const Teams = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const responseData = await sendRequest('http://localhost:5000/teams');
+        const responseData = await sendRequest("http://localhost:5000/teams");
         setAllTeams(responseData.teams);
         setLoadedTeams(responseData.teams);
       } catch (error) {}
@@ -29,14 +29,30 @@ const Teams = () => {
     setLoadedTeams(filteredResults);
   };
 
+  const onFilterAlphabetical = () => {
+    const teams = [...loadedTeams];
+    setLoadedTeams(teams.sort((a, b) => a.name.localeCompare(b.name)));
+  };
+  
+  const onFilterEstablished = () => {
+    const teams = [...loadedTeams];
+    setLoadedTeams(teams.sort((a, b) => a.established - b.established));
+  };
+
   return (
     <React.Fragment>
-      <InputGroup className="TeamSearch">
-        <InputGroup.Prepend>
-          <InputGroup.Text>Team</InputGroup.Text>
-        </InputGroup.Prepend>
-        <FormControl onChange={onNameChange} />
-      </InputGroup>
+      <div className="SearchControls">
+        <InputGroup className="TeamSearch">
+          <InputGroup.Prepend>
+            <InputGroup.Text>Team</InputGroup.Text>
+          </InputGroup.Prepend>
+          <FormControl onChange={onNameChange} />
+        </InputGroup>
+        <ButtonGroup className="SearchButtons">
+          <Button onClick={onFilterAlphabetical}>Alphabetical</Button>
+          <Button onClick={onFilterEstablished}>Established</Button>
+        </ButtonGroup>
+      </div>
       {isLoading && <div>loading...</div>}
       {!isLoading && loadedTeams && (
         <ul className="TeamList">
@@ -45,7 +61,7 @@ const Teams = () => {
               key={team.id}
               name={team.name}
               est={team.established}
-              logo={'./images/' + team.photo}
+              logo={"./images/" + team.photo}
               color={team.photoColor}
             />
           ))}
