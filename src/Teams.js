@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import TeamCard from "./TeamCard";
-import TeamListItem from "./TeamListItem";
+import TeamHierarchy from "./TeamHierarchy";
 import { InputGroup, FormControl, Button, ButtonGroup } from "react-bootstrap";
 import { useHttpClient } from "./hooks/http-hook";
 import "./Teams.css";
@@ -9,16 +9,25 @@ import "./Teams.css";
 const Teams = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [allTeams, setAllTeams] = useState();
+  const [allAffiliates, setAllAffiliates] = useState();
   const [loadedTeams, setLoadedTeams] = useState();
   useEffect(() => {
-    const fetchUsers = async () => {
+    // const fetchTeams = async () => {
+    //   try {
+    //     const responseData = await sendRequest("http://localhost:5000/teams");
+    //     setAllTeams(responseData.teams);
+    //     setLoadedTeams(responseData.teams);
+    //   } catch (error) {}
+    // };
+    // fetchTeams();
+    const fetchAffiliates = async () => {
       try {
-        const responseData = await sendRequest("http://localhost:5000/teams");
-        setAllTeams(responseData.teams);
+        const responseData = await sendRequest("http://localhost:5000/teams/affiliates");
+        setAllAffiliates(responseData.teams);
         setLoadedTeams(responseData.teams);
       } catch (error) {}
     };
-    fetchUsers();
+    fetchAffiliates();
   }, [sendRequest]);
 
   const onNameChange = async event => {
@@ -58,11 +67,12 @@ const Teams = () => {
       {!isLoading && loadedTeams && (
         <ul className="TeamList">
           {loadedTeams.map(team => (
-            <TeamListItem
+            <TeamHierarchy
               key={team.id}
               name={team.name}
               logo={"./images/" + team.photo}
               league={team.league}
+              affiliates={team.affiliates}
             />
           ))}
         </ul>

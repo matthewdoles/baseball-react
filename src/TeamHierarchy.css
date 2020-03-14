@@ -1,5 +1,5 @@
 .TeamListItem {
-  width: 90%;
+  width: 100%;
   height: 60px;
   background-color: white;
   border-radius: 25px;
@@ -7,6 +7,7 @@
   margin: 10px auto;
   font-size: 24px;
   font-weight: bold;
+  box-shadow: inset -2px -2px 2px rgba(0, 0, 0, .3);
 }
 
 .TeamListItem img {
@@ -21,4 +22,29 @@
 
 .TeamListItem .ItemLeague {
   float: right;
+}
+
+.AffiliateList {
+  padding: 0px;
+}
+
+.AffiliateItem {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.AAA {
+  width: 94%;
+}
+
+.AA {
+  width: 86%;
+}
+
+.A, .SS {
+  width: 78%;
+}
+
+.R {
+  width: 70%;
 }
