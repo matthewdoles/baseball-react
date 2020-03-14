@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import TeamCard from "./TeamCard";
+import TeamListItem from "./TeamListItem";
 import { InputGroup, FormControl, Button, ButtonGroup } from "react-bootstrap";
 import { useHttpClient } from "./hooks/http-hook";
 import "./Teams.css";
@@ -33,7 +34,7 @@ const Teams = () => {
     const teams = [...loadedTeams];
     setLoadedTeams(teams.sort((a, b) => a.name.localeCompare(b.name)));
   };
-  
+
   const onFilterEstablished = () => {
     const teams = [...loadedTeams];
     setLoadedTeams(teams.sort((a, b) => a.established - b.established));
@@ -54,6 +55,18 @@ const Teams = () => {
         </ButtonGroup>
       </div>
       {isLoading && <div>loading...</div>}
+      {!isLoading && loadedTeams && (
+        <ul className="TeamList">
+          {loadedTeams.map(team => (
+            <TeamListItem
+              key={team.id}
+              name={team.name}
+              logo={"./images/" + team.photo}
+              league={team.league}
+            />
+          ))}
+        </ul>
+      )}
       {!isLoading && loadedTeams && (
         <ul className="TeamList">
           {loadedTeams.map(team => (
