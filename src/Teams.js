@@ -51,8 +51,15 @@ const Teams = () => {
         setAllAffiliates(responseData.teams);
         setLoadedTeams(responseData.teams);
       } catch (error) {}
+      setShowHierarchyView(true);
     }
-    setShowHierarchyView(!showHierarchyView);
+    else if (showHierarchyView) {
+      setShowHierarchyView(false);
+      setLoadedTeams(allTeams);
+    } else {
+      setShowHierarchyView(true);
+      setLoadedTeams(allAffiliates);
+    }
   };
 
   return (
