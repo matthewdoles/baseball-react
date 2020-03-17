@@ -3,7 +3,14 @@ import React, { useEffect, useState } from "react";
 import TeamCard from "./TeamCard";
 import TeamHierarchy from "./TeamHierarchy";
 import TeamSelection from "./TeamSelection";
-import { InputGroup, FormControl, Button, ButtonGroup } from "react-bootstrap";
+import {
+  InputGroup,
+  FormControl,
+  Button,
+  ButtonGroup,
+  Dropdown,
+  DropdownButton
+} from "react-bootstrap";
 import { useHttpClient } from "./hooks/http-hook";
 import "./Teams.css";
 
@@ -14,6 +21,7 @@ const Teams = () => {
 
   const [selectableTeams, setSelectableTeams] = useState(null);
   const [selectedTeam, setSelectedTeam] = useState(null);
+  const [selectedLeague, setSelectedLeague] = useState(null);
   const [loadedTeams, setLoadedTeams] = useState();
   const [showHierarchyView, setShowHierarchyView] = useState(false);
   useEffect(() => {
@@ -37,6 +45,10 @@ const Teams = () => {
       team =>
         team.name.toUpperCase().search(event.target.value.toUpperCase()) > -1
     );
+    if (selectedLeague !== null) {
+      const leagueFilter = filteredResults.filter(team => team.league === selectedLeague);
+      return setLoadedTeams(leagueFilter);
+    }
     setLoadedTeams(filteredResults);
   };
 
@@ -48,6 +60,28 @@ const Teams = () => {
   const onFilterEstablished = () => {
     const teams = [...loadedTeams];
     setLoadedTeams(teams.sort((a, b) => a.established - b.established));
+  };
+
+  const onFilterLeague = event => {
+    if (event === "All") {
+      setSelectedLeague(null);
+      return setLoadedTeams(allTeams);
+    }
+    const teams = [...allTeams];
+    const filteredTeams = teams.filter(team => team.league === event);
+    if (document.getElementById("TeamNameInput").value !== "") {
+      const searchFilter = filteredTeams.filter(
+        team =>
+          team.name
+            .toUpperCase()
+            .search(
+              document.getElementById("TeamNameInput").value.toUpperCase()
+            ) > -1
+      );
+      return setLoadedTeams(searchFilter);
+    }
+    setSelectedLeague(event);
+    setLoadedTeams(filteredTeams);
   };
 
   const onToggleHierarchyView = async () => {
@@ -73,9 +107,7 @@ const Teams = () => {
     if (selectedTeam !== event.target.getAttribute("value")) {
       const teams = [...allAffiliates];
       if (document.getElementById(selectedTeam) !== null) {
-        document
-          .getElementById(selectedTeam)
-          .classList.remove("SelectedTeam");
+        document.getElementById(selectedTeam).classList.remove("SelectedTeam");
       }
       event.target.classList.add("SelectedTeam");
       setLoadedTeams(
@@ -121,11 +153,26 @@ const Teams = () => {
               <InputGroup.Prepend>
                 <InputGroup.Text>Team</InputGroup.Text>
               </InputGroup.Prepend>
-              <FormControl onChange={onNameChange} />
+              <FormControl onChange={onNameChange} id="TeamNameInput" />
             </InputGroup>
             <ButtonGroup className="SearchButtons">
               <Button onClick={onFilterAlphabetical}>Alphabetical</Button>
               <Button onClick={onFilterEstablished}>Established</Button>
+              <DropdownButton
+                as={ButtonGroup}
+                title="League"
+                id="LeagueDropdown"
+                onSelect={onFilterLeague}
+              >
+                <Dropdown.Item eventKey="All">All</Dropdown.Item>
+                <Dropdown.Item eventKey="MLB">MLB</Dropdown.Item>
+                <Dropdown.Item eventKey="AAA">AAA</Dropdown.Item>
+                <Dropdown.Item eventKey="AA">AA</Dropdown.Item>
+                <Dropdown.Item eventKey="A+">A+</Dropdown.Item>
+                <Dropdown.Item eventKey="A">A</Dropdown.Item>
+                <Dropdown.Item eventKey="SS">SS</Dropdown.Item>
+                <Dropdown.Item eventKey="R">R</Dropdown.Item>
+              </DropdownButton>
             </ButtonGroup>
           </div>
           <ul className="TeamList">
