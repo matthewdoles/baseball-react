@@ -1,0 +1,26 @@
+.TeamSelect {
+  background-color: white;
+  z-index: 100;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0
+}
+.TeamSelectList {
+  padding: 0px;
+  margin: 0 auto;
+}
+
+.TeamSelectList img {
+  width: 2%;
+  margin: .5%;
+  opacity: .5;
+}
+
+.TeamSelectList img:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.SelectedTeam {
+  opacity: 1 !important;
+}

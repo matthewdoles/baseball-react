@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import TeamCard from "./TeamCard";
 import TeamHierarchy from "./TeamHierarchy";
+import TeamSelection from "./TeamSelection";
 import { InputGroup, FormControl, Button, ButtonGroup } from "react-bootstrap";
 import { useHttpClient } from "./hooks/http-hook";
 import "./Teams.css";
@@ -10,6 +11,9 @@ const Teams = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [allTeams, setAllTeams] = useState();
   const [allAffiliates, setAllAffiliates] = useState(null);
+
+  const [selectableTeams, setSelectableTeams] = useState(null);
+  const [selectedTeam, setSelectedTeam] = useState(null);
   const [loadedTeams, setLoadedTeams] = useState();
   const [showHierarchyView, setShowHierarchyView] = useState(false);
   useEffect(() => {
@@ -18,6 +22,10 @@ const Teams = () => {
         const responseData = await sendRequest("http://localhost:5000/teams");
         setAllTeams(responseData.teams);
         setLoadedTeams(responseData.teams);
+        const mlbTeams = responseData.teams.filter(
+          team => team.league === "MLB"
+        );
+        setSelectableTeams(mlbTeams);
       } catch (error) {}
     };
     fetchTeams();
@@ -52,13 +60,32 @@ const Teams = () => {
         setLoadedTeams(responseData.teams);
       } catch (error) {}
       setShowHierarchyView(true);
-    }
-    else if (showHierarchyView) {
+    } else if (showHierarchyView) {
       setShowHierarchyView(false);
       setLoadedTeams(allTeams);
     } else {
       setShowHierarchyView(true);
       setLoadedTeams(allAffiliates);
+    }
+  };
+
+  const onTeamSelected = event => {
+    if (selectedTeam !== event.target.getAttribute("value")) {
+      const teams = [...allAffiliates];
+      if (document.getElementById(selectedTeam) !== null) {
+        document
+          .getElementById(selectedTeam)
+          .classList.remove("SelectedTeam");
+      }
+      event.target.classList.add("SelectedTeam");
+      setLoadedTeams(
+        teams.filter(team => team.name === event.target.getAttribute("value"))
+      );
+      setSelectedTeam(event.target.getAttribute("value"));
+    } else {
+      event.target.classList.remove("SelectedTeam");
+      setLoadedTeams(allAffiliates);
+      setSelectedTeam(null);
     }
   };
 
@@ -69,17 +96,23 @@ const Teams = () => {
       </Button>
       {isLoading && <div>loading...</div>}
       {!isLoading && loadedTeams && showHierarchyView && (
-        <ul className="TeamList">
-          {loadedTeams.map(team => (
-            <TeamHierarchy
-              key={team.id}
-              name={team.name}
-              logo={"./images/" + team.photo}
-              league={team.league}
-              affiliates={team.affiliates}
-            />
-          ))}
-        </ul>
+        <React.Fragment>
+          <TeamSelection
+            teams={selectableTeams}
+            teamSelected={onTeamSelected}
+          />
+          <ul className="TeamList">
+            {loadedTeams.map(team => (
+              <TeamHierarchy
+                key={team.id}
+                name={team.name}
+                logo={"./images/" + team.photo}
+                league={team.league}
+                affiliates={team.affiliates}
+              />
+            ))}
+          </ul>
+        </React.Fragment>
       )}
       {!isLoading && loadedTeams && !showHierarchyView && (
         <React.Fragment>
