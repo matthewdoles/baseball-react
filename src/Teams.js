@@ -21,7 +21,7 @@ const Teams = () => {
 
   const [selectableTeams, setSelectableTeams] = useState(null);
   const [selectedTeam, setSelectedTeam] = useState(null);
-  const [selectedLeague, setSelectedLeague] = useState(null);
+  const [selectedLeague, setSelectedLeague] = useState("League");
   const [loadedTeams, setLoadedTeams] = useState();
   const [showHierarchyView, setShowHierarchyView] = useState(false);
   useEffect(() => {
@@ -45,7 +45,7 @@ const Teams = () => {
       team =>
         team.name.toUpperCase().search(event.target.value.toUpperCase()) > -1
     );
-    if (selectedLeague !== null) {
+    if (selectedLeague !== "League") {
       const leagueFilter = filteredResults.filter(team => team.league === selectedLeague);
       return setLoadedTeams(leagueFilter);
     }
@@ -54,21 +54,39 @@ const Teams = () => {
 
   const onFilterAlphabetical = () => {
     const teams = [...loadedTeams];
+    document.getElementById("AlphabeticalButton").classList.add("SearchButtonActive");
+    document.getElementById("EstablishedButton").classList.remove("SearchButtonActive");
     setLoadedTeams(teams.sort((a, b) => a.name.localeCompare(b.name)));
   };
 
   const onFilterEstablished = () => {
     const teams = [...loadedTeams];
+    document.getElementById("AlphabeticalButton").classList.remove("SearchButtonActive");
+    document.getElementById("EstablishedButton").classList.add("SearchButtonActive");
     setLoadedTeams(teams.sort((a, b) => a.established - b.established));
   };
 
-  const onFilterLeague = event => {
-    if (event === "All") {
-      setSelectedLeague(null);
+  const onFilterLeague = (keyValue, event) => {
+    const teams = [...allTeams];
+    if (keyValue === "All") {
+      document.getElementById("AlphabeticalButton").classList.add("SearchButtonActive");
+      document.getElementById("EstablishedButton").classList.remove("SearchButtonActive");
+      document.getElementById("LeagueDropdown").classList.remove("SearchButtonActive");
+      setSelectedLeague("League");
+      if (document.getElementById("TeamNameInput").value !== "") {
+        const searchFilter = teams.filter(
+          team =>
+            team.name
+              .toUpperCase()
+              .search(
+                document.getElementById("TeamNameInput").value.toUpperCase()
+              ) > -1
+        );
+        return setLoadedTeams(searchFilter);
+      }
       return setLoadedTeams(allTeams);
     }
-    const teams = [...allTeams];
-    const filteredTeams = teams.filter(team => team.league === event);
+    const filteredTeams = teams.filter(team => team.league === keyValue);
     if (document.getElementById("TeamNameInput").value !== "") {
       const searchFilter = filteredTeams.filter(
         team =>
@@ -80,7 +98,10 @@ const Teams = () => {
       );
       return setLoadedTeams(searchFilter);
     }
-    setSelectedLeague(event);
+    document.getElementById("AlphabeticalButton").classList.add("SearchButtonActive");
+    document.getElementById("EstablishedButton").classList.remove("SearchButtonActive");
+    document.getElementById("LeagueDropdown").classList.add("SearchButtonActive");
+    setSelectedLeague(keyValue);
     setLoadedTeams(filteredTeams);
   };
 
@@ -156,11 +177,11 @@ const Teams = () => {
               <FormControl onChange={onNameChange} id="TeamNameInput" />
             </InputGroup>
             <ButtonGroup className="SearchButtons">
-              <Button onClick={onFilterAlphabetical}>Alphabetical</Button>
-              <Button onClick={onFilterEstablished}>Established</Button>
+              <Button onClick={onFilterAlphabetical} id="AlphabeticalButton">Alphabetical</Button>
+              <Button onClick={onFilterEstablished} id="EstablishedButton">Established</Button>
               <DropdownButton
                 as={ButtonGroup}
-                title="League"
+                title={selectedLeague}
                 id="LeagueDropdown"
                 onSelect={onFilterLeague}
               >
