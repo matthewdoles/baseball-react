@@ -16,8 +16,10 @@ const Teams = () => {
   const [selectableTeams, setSelectableTeams] = useState(null);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [selectedLeague, setSelectedLeague] = useState("League");
+  const [selectedFilter, setSelectedFilter] = useState("Alphabetical");
   const [loadedTeams, setLoadedTeams] = useState();
   const [showHierarchyView, setShowHierarchyView] = useState(false);
+  
   useEffect(() => {
     const fetchTeams = async () => {
       try {
@@ -56,6 +58,7 @@ const Teams = () => {
     document
       .getElementById("EstablishedButton")
       .classList.remove("SearchButtonActive");
+    setSelectedFilter("Alphabetical");
     setLoadedTeams(teams.sort((a, b) => a.name.localeCompare(b.name)));
   };
 
@@ -67,11 +70,12 @@ const Teams = () => {
     document
       .getElementById("EstablishedButton")
       .classList.add("SearchButtonActive");
+    setSelectedFilter("Established");
     setLoadedTeams(teams.sort((a, b) => a.established - b.established));
   };
 
   const onFilterLeague = (keyValue, event) => {
-    const teams = [...allTeams];
+    let teams = [...allTeams];
     document
       .getElementById("AlphabeticalButton")
       .classList.add("SearchButtonActive");
@@ -97,7 +101,29 @@ const Teams = () => {
                 document.getElementById("TeamNameInput").value.toUpperCase()
               ) > -1
         );
+        if (selectedFilter === "Established") {
+          document
+            .getElementById("AlphabeticalButton")
+            .classList.remove("SearchButtonActive");
+          document
+            .getElementById("EstablishedButton")
+            .classList.add("SearchButtonActive");
+          return setLoadedTeams(
+            searchFilter.sort((a, b) => a.established - b.established)
+          );
+        }
         return setLoadedTeams(searchFilter);
+      }
+      if (selectedFilter === "Established") {
+        document
+          .getElementById("AlphabeticalButton")
+          .classList.remove("SearchButtonActive");
+        document
+          .getElementById("EstablishedButton")
+          .classList.add("SearchButtonActive");
+        return setLoadedTeams(
+          teams.sort((a, b) => a.established - b.established)
+        );
       }
       return setLoadedTeams(allTeams);
     }
@@ -120,7 +146,29 @@ const Teams = () => {
               document.getElementById("TeamNameInput").value.toUpperCase()
             ) > -1
       );
+      if (selectedFilter === "Established") {
+        document
+          .getElementById("AlphabeticalButton")
+          .classList.remove("SearchButtonActive");
+        document
+          .getElementById("EstablishedButton")
+          .classList.add("SearchButtonActive");
+        return setLoadedTeams(
+          searchFilter.sort((a, b) => a.established - b.established)
+        );
+      }
       return setLoadedTeams(searchFilter);
+    }
+    if (selectedFilter === "Established") {
+      document
+        .getElementById("AlphabeticalButton")
+        .classList.remove("SearchButtonActive");
+      document
+        .getElementById("EstablishedButton")
+        .classList.add("SearchButtonActive");
+      return setLoadedTeams(
+        filteredTeams.sort((a, b) => a.established - b.established)
+      );
     }
     setLoadedTeams(filteredTeams);
   };
