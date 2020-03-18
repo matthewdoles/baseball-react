@@ -1,0 +1,31 @@
+.SearchControls {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.TeamSearch {
+  width: 40% !important;
+  padding: 10px;
+}
+
+.SearchButtons button {
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  color: black;
+}
+
+.SearchButtons button:active,
+.SearchButtons button:focus,
+.SearchButtons button:hover {
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  color: black;
+  box-shadow: none;
+}
+
+.SearchButtonActive {
+  background-color: #007bff !important;
+  color: white !important;
+}

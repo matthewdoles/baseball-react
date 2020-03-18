@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
 
+import TeamSearch from "./TeamSearch";
 import TeamCard from "./TeamCard";
 import TeamHierarchy from "./TeamHierarchy";
 import TeamSelection from "./TeamSelection";
-import {
-  InputGroup,
-  FormControl,
-  Button,
-  ButtonGroup,
-  Dropdown,
-  DropdownButton
-} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useHttpClient } from "./hooks/http-hook";
 import "./Teams.css";
 
@@ -46,7 +40,9 @@ const Teams = () => {
         team.name.toUpperCase().search(event.target.value.toUpperCase()) > -1
     );
     if (selectedLeague !== "League") {
-      const leagueFilter = filteredResults.filter(team => team.league === selectedLeague);
+      const leagueFilter = filteredResults.filter(
+        team => team.league === selectedLeague
+      );
       return setLoadedTeams(leagueFilter);
     }
     setLoadedTeams(filteredResults);
@@ -54,24 +50,38 @@ const Teams = () => {
 
   const onFilterAlphabetical = () => {
     const teams = [...loadedTeams];
-    document.getElementById("AlphabeticalButton").classList.add("SearchButtonActive");
-    document.getElementById("EstablishedButton").classList.remove("SearchButtonActive");
+    document
+      .getElementById("AlphabeticalButton")
+      .classList.add("SearchButtonActive");
+    document
+      .getElementById("EstablishedButton")
+      .classList.remove("SearchButtonActive");
     setLoadedTeams(teams.sort((a, b) => a.name.localeCompare(b.name)));
   };
 
   const onFilterEstablished = () => {
     const teams = [...loadedTeams];
-    document.getElementById("AlphabeticalButton").classList.remove("SearchButtonActive");
-    document.getElementById("EstablishedButton").classList.add("SearchButtonActive");
+    document
+      .getElementById("AlphabeticalButton")
+      .classList.remove("SearchButtonActive");
+    document
+      .getElementById("EstablishedButton")
+      .classList.add("SearchButtonActive");
     setLoadedTeams(teams.sort((a, b) => a.established - b.established));
   };
 
   const onFilterLeague = (keyValue, event) => {
     const teams = [...allTeams];
     if (keyValue === "All") {
-      document.getElementById("AlphabeticalButton").classList.add("SearchButtonActive");
-      document.getElementById("EstablishedButton").classList.remove("SearchButtonActive");
-      document.getElementById("LeagueDropdown").classList.remove("SearchButtonActive");
+      document
+        .getElementById("AlphabeticalButton")
+        .classList.add("SearchButtonActive");
+      document
+        .getElementById("EstablishedButton")
+        .classList.remove("SearchButtonActive");
+      document
+        .getElementById("LeagueDropdown")
+        .classList.remove("SearchButtonActive");
       setSelectedLeague("League");
       if (document.getElementById("TeamNameInput").value !== "") {
         const searchFilter = teams.filter(
@@ -98,9 +108,15 @@ const Teams = () => {
       );
       return setLoadedTeams(searchFilter);
     }
-    document.getElementById("AlphabeticalButton").classList.add("SearchButtonActive");
-    document.getElementById("EstablishedButton").classList.remove("SearchButtonActive");
-    document.getElementById("LeagueDropdown").classList.add("SearchButtonActive");
+    document
+      .getElementById("AlphabeticalButton")
+      .classList.add("SearchButtonActive");
+    document
+      .getElementById("EstablishedButton")
+      .classList.remove("SearchButtonActive");
+    document
+      .getElementById("LeagueDropdown")
+      .classList.add("SearchButtonActive");
     setSelectedLeague(keyValue);
     setLoadedTeams(filteredTeams);
   };
@@ -169,33 +185,13 @@ const Teams = () => {
       )}
       {!isLoading && loadedTeams && !showHierarchyView && (
         <React.Fragment>
-          <div className="SearchControls">
-            <InputGroup className="TeamSearch">
-              <InputGroup.Prepend>
-                <InputGroup.Text>Team</InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl onChange={onNameChange} id="TeamNameInput" />
-            </InputGroup>
-            <ButtonGroup className="SearchButtons">
-              <Button onClick={onFilterAlphabetical} id="AlphabeticalButton">Alphabetical</Button>
-              <Button onClick={onFilterEstablished} id="EstablishedButton">Established</Button>
-              <DropdownButton
-                as={ButtonGroup}
-                title={selectedLeague}
-                id="LeagueDropdown"
-                onSelect={onFilterLeague}
-              >
-                <Dropdown.Item eventKey="All">All</Dropdown.Item>
-                <Dropdown.Item eventKey="MLB">MLB</Dropdown.Item>
-                <Dropdown.Item eventKey="AAA">AAA</Dropdown.Item>
-                <Dropdown.Item eventKey="AA">AA</Dropdown.Item>
-                <Dropdown.Item eventKey="A+">A+</Dropdown.Item>
-                <Dropdown.Item eventKey="A">A</Dropdown.Item>
-                <Dropdown.Item eventKey="SS">SS</Dropdown.Item>
-                <Dropdown.Item eventKey="R">R</Dropdown.Item>
-              </DropdownButton>
-            </ButtonGroup>
-          </div>
+          <TeamSearch
+            nameChange={onNameChange}
+            filterAlphabetical={onFilterAlphabetical}
+            filterEstablished={onFilterEstablished}
+            filterLeague={onFilterLeague}
+            league={selectedLeague}
+          />
           <ul className="TeamList">
             {loadedTeams.map(team => (
               <TeamCard
