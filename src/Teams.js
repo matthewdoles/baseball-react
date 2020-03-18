@@ -72,16 +72,21 @@ const Teams = () => {
 
   const onFilterLeague = (keyValue, event) => {
     const teams = [...allTeams];
+    document
+      .getElementById("AlphabeticalButton")
+      .classList.add("SearchButtonActive");
+    document
+      .getElementById("EstablishedButton")
+      .classList.remove("SearchButtonActive");
     if (keyValue === "All") {
-      document
-        .getElementById("AlphabeticalButton")
-        .classList.add("SearchButtonActive");
-      document
-        .getElementById("EstablishedButton")
-        .classList.remove("SearchButtonActive");
       document
         .getElementById("LeagueDropdown")
         .classList.remove("SearchButtonActive");
+      const dropdownItems = Array.from(
+        document.getElementsByClassName("LeagueDropdownItem")
+      );
+      dropdownItems.forEach(el => el.classList.remove("HideLeague"));
+      dropdownItems[0].classList.add("HideLeague");
       setSelectedLeague("League");
       if (document.getElementById("TeamNameInput").value !== "") {
         const searchFilter = teams.filter(
@@ -97,6 +102,15 @@ const Teams = () => {
       return setLoadedTeams(allTeams);
     }
     const filteredTeams = teams.filter(team => team.league === keyValue);
+    document
+      .getElementById("LeagueDropdown")
+      .classList.add("SearchButtonActive");
+    const dropdownItems = Array.from(
+      document.getElementsByClassName("LeagueDropdownItem")
+    );
+    dropdownItems.forEach(el => el.classList.remove("HideLeague"));
+    event.target.classList.add("HideLeague");
+    setSelectedLeague(keyValue);
     if (document.getElementById("TeamNameInput").value !== "") {
       const searchFilter = filteredTeams.filter(
         team =>
@@ -108,16 +122,6 @@ const Teams = () => {
       );
       return setLoadedTeams(searchFilter);
     }
-    document
-      .getElementById("AlphabeticalButton")
-      .classList.add("SearchButtonActive");
-    document
-      .getElementById("EstablishedButton")
-      .classList.remove("SearchButtonActive");
-    document
-      .getElementById("LeagueDropdown")
-      .classList.add("SearchButtonActive");
-    setSelectedLeague(keyValue);
     setLoadedTeams(filteredTeams);
   };
 
@@ -132,7 +136,10 @@ const Teams = () => {
       } catch (error) {}
       setShowHierarchyView(true);
     } else if (showHierarchyView) {
-      setShowHierarchyView(false);
+      await setShowHierarchyView(false);
+      document
+        .getElementById("AlphabeticalButton")
+        .classList.add("SearchButtonActive");
       setLoadedTeams(allTeams);
     } else {
       setShowHierarchyView(true);

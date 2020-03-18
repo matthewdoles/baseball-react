@@ -3,6 +3,11 @@
   margin: auto;
   justify-content: center;
   align-items: center;
+  z-index: 100;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: rgba(	237, 238, 240);
 }
 
 .TeamSearch {
@@ -28,4 +33,8 @@
 .SearchButtonActive {
   background-color: #007bff !important;
   color: white !important;
+}
+
+.HideLeague { 
+  display: none !important;
 }
