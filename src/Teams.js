@@ -7,6 +7,7 @@ import TeamSelection from "./TeamSelection";
 import { Button } from "react-bootstrap";
 import { useHttpClient } from "./hooks/http-hook";
 import "./Teams.css";
+import TeamDivision from "./TeamDivision";
 
 const Teams = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -17,9 +18,10 @@ const Teams = () => {
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [selectedLeague, setSelectedLeague] = useState("League");
   const [selectedFilter, setSelectedFilter] = useState("Alphabetical");
+  const [divisionDetails, setDivisionDetails] = useState();
   const [loadedTeams, setLoadedTeams] = useState();
   const [showHierarchyView, setShowHierarchyView] = useState(false);
-  
+
   useEffect(() => {
     const fetchTeams = async () => {
       try {
@@ -173,6 +175,34 @@ const Teams = () => {
     setLoadedTeams(filteredTeams);
   };
 
+  const onFilterDivision = () => {
+    const selectedLeagueTeams = allTeams.filter(
+      team => team.league === selectedLeague
+    );
+    const selectedLeagueConferences = [
+      ...new Set(selectedLeagueTeams.map(team => team.conference))
+    ];
+    const selectedLeagueDivisions = [
+      ...new Set(selectedLeagueTeams.map(team => team.division))
+    ];
+    const sortedTeams = [];
+    selectedLeagueConferences.forEach(conference => {
+      const divisions = [];
+      selectedLeagueDivisions.forEach(division => {
+        const divisionTeams = selectedLeagueTeams.filter(
+          team => team.conference === conference && team.division === division
+        );
+        if (divisionTeams.length > 0) {
+          divisions.push({ name: division, teams: divisionTeams });
+        }
+      });
+      sortedTeams.push({ name: conference, divisions })
+    });
+    setDivisionDetails(sortedTeams);
+    console.log(sortedTeams);
+    setSelectedFilter("Division");
+  };
+
   const onToggleHierarchyView = async () => {
     if (allAffiliates === null) {
       try {
@@ -245,19 +275,35 @@ const Teams = () => {
             filterAlphabetical={onFilterAlphabetical}
             filterEstablished={onFilterEstablished}
             filterLeague={onFilterLeague}
+            filterDivision={onFilterDivision}
             league={selectedLeague}
           />
-          <ul className="TeamList">
-            {loadedTeams.map(team => (
-              <TeamCard
-                key={team.id}
-                name={team.name}
-                est={team.established}
-                logo={"./images/" + team.photo}
-                color={team.photoColor}
-              />
-            ))}
-          </ul>
+          {selectedFilter !== "Division" && (
+            <ul className="TeamList">
+              {loadedTeams.map(team => (
+                <TeamCard
+                  key={team.id}
+                  name={team.name}
+                  est={team.established}
+                  logo={"./images/" + team.photo}
+                  color={team.photoColor}
+                />
+              ))}
+            </ul>
+          )}
+          {selectedFilter === "Division" && (
+            <React.Fragment>
+              {divisionDetails.map(conference => {
+                return (
+                  <TeamDivision
+                    conference={conference.name}
+                    divisions={conference.divisions}
+                    key={conference.name}
+                  />
+                );
+              })}
+            </React.Fragment>
+          )}
         </React.Fragment>
       )}
     </React.Fragment>

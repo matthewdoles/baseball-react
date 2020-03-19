@@ -20,7 +20,11 @@ const TeamSearch = props => {
         <FormControl onChange={props.nameChange} id="TeamNameInput" />
       </InputGroup>
       <ButtonGroup className="SearchButtons">
-        <Button onClick={props.filterAlphabetical} className="SearchButtonActive" id="AlphabeticalButton">
+        <Button
+          onClick={props.filterAlphabetical}
+          className="SearchButtonActive"
+          id="AlphabeticalButton"
+        >
           Alphabetical
         </Button>
         <Button onClick={props.filterEstablished} id="EstablishedButton">
@@ -36,14 +40,33 @@ const TeamSearch = props => {
             <Dropdown.Item eventKey="All">All</Dropdown.Item>
             <Dropdown.Divider />
           </div>
-          <Dropdown.Item eventKey="MLB" className="LeagueDropdownItem">MLB</Dropdown.Item>
-          <Dropdown.Item eventKey="AAA" className="LeagueDropdownItem">AAA</Dropdown.Item>
-          <Dropdown.Item eventKey="AA" className="LeagueDropdownItem">AA</Dropdown.Item>
-          <Dropdown.Item eventKey="A+" className="LeagueDropdownItem">A+</Dropdown.Item>
-          <Dropdown.Item eventKey="A" className="LeagueDropdownItem">A</Dropdown.Item>
-          <Dropdown.Item eventKey="SS" className="LeagueDropdownItem">SS</Dropdown.Item>
-          <Dropdown.Item eventKey="R" className="LeagueDropdownItem">R</Dropdown.Item>
+          <Dropdown.Item eventKey="MLB" className="LeagueDropdownItem">
+            MLB
+          </Dropdown.Item>
+          <Dropdown.Item eventKey="AAA" className="LeagueDropdownItem">
+            AAA
+          </Dropdown.Item>
+          <Dropdown.Item eventKey="AA" className="LeagueDropdownItem">
+            AA
+          </Dropdown.Item>
+          <Dropdown.Item eventKey="A+" className="LeagueDropdownItem">
+            A+
+          </Dropdown.Item>
+          <Dropdown.Item eventKey="A" className="LeagueDropdownItem">
+            A
+          </Dropdown.Item>
+          <Dropdown.Item eventKey="SS" className="LeagueDropdownItem">
+            SS
+          </Dropdown.Item>
+          <Dropdown.Item eventKey="R" className="LeagueDropdownItem">
+            R
+          </Dropdown.Item>
         </DropdownButton>
+        {props.league !== "League" && (
+          <Button onClick={props.filterDivision} id="EstablishedButton">
+            Division
+          </Button>
+        )}
       </ButtonGroup>
     </div>
   );
