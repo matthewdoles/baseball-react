@@ -38,52 +38,30 @@ const Teams = () => {
   }, [sendRequest]);
 
   const onNameChange = async event => {
-    const teams = [...allTeams];
-    const filteredResults = teams.filter(
-      team =>
-        team.name.toUpperCase().search(event.target.value.toUpperCase()) > -1
-    );
+    const filteredResults = nameSearchFilter([...allTeams], event.target.value);
     if (selectedLeague !== "League") {
-      const leagueFilter = filteredResults.filter(
+      const filteredWithLeague = filteredResults.filter(
         team => team.league === selectedLeague
       );
-      return setLoadedTeams(leagueFilter);
+      return setLoadedTeams(filteredWithLeague);
     }
     setLoadedTeams(filteredResults);
   };
 
   const onFilterAlphabetical = () => {
-    const teams = [...loadedTeams];
-    document
-      .getElementById("AlphabeticalButton")
-      .classList.add("SearchButtonActive");
-    document
-      .getElementById("EstablishedButton")
-      .classList.remove("SearchButtonActive");
+    setLoadedTeams(alphabeticalFilter([...loadedTeams]));
     setSelectedFilter("Alphabetical");
-    setLoadedTeams(teams.sort((a, b) => a.name.localeCompare(b.name)));
+    applyFilterStyles(true, false, false);
   };
 
   const onFilterEstablished = () => {
-    const teams = [...loadedTeams];
-    document
-      .getElementById("AlphabeticalButton")
-      .classList.remove("SearchButtonActive");
-    document
-      .getElementById("EstablishedButton")
-      .classList.add("SearchButtonActive");
+    setLoadedTeams(establishedFilter([...loadedTeams]));
     setSelectedFilter("Established");
-    setLoadedTeams(teams.sort((a, b) => a.established - b.established));
+    applyFilterStyles(false, true, false);
   };
 
   const onFilterLeague = (keyValue, event) => {
     let teams = [...allTeams];
-    document
-      .getElementById("AlphabeticalButton")
-      .classList.add("SearchButtonActive");
-    document
-      .getElementById("EstablishedButton")
-      .classList.remove("SearchButtonActive");
     if (keyValue === "All") {
       document
         .getElementById("LeagueDropdown")
@@ -94,39 +72,23 @@ const Teams = () => {
       dropdownItems.forEach(el => el.classList.remove("HideLeague"));
       dropdownItems[0].classList.add("HideLeague");
       setSelectedLeague("League");
-      if (document.getElementById("TeamNameInput").value !== "") {
-        const searchFilter = teams.filter(
-          team =>
-            team.name
-              .toUpperCase()
-              .search(
-                document.getElementById("TeamNameInput").value.toUpperCase()
-              ) > -1
-        );
+      const searchValue = document.getElementById("TeamNameInput").value;
+      if (searchValue !== "") {
+        const searchFilter = nameSearchFilter(teams, searchValue);
+
         if (selectedFilter === "Established") {
-          document
-            .getElementById("AlphabeticalButton")
-            .classList.remove("SearchButtonActive");
-          document
-            .getElementById("EstablishedButton")
-            .classList.add("SearchButtonActive");
-          return setLoadedTeams(
-            searchFilter.sort((a, b) => a.established - b.established)
-          );
+          applyFilterStyles(false, true, false);
+          return setLoadedTeams(establishedFilter(searchFilter));
         }
+        setSelectedFilter("Alphabetical");
         return setLoadedTeams(searchFilter);
       }
       if (selectedFilter === "Established") {
-        document
-          .getElementById("AlphabeticalButton")
-          .classList.remove("SearchButtonActive");
-        document
-          .getElementById("EstablishedButton")
-          .classList.add("SearchButtonActive");
-        return setLoadedTeams(
-          teams.sort((a, b) => a.established - b.established)
-        );
+        applyFilterStyles(false, true, false);
+        return setLoadedTeams(establishedFilter(teams));
       }
+      applyFilterStyles(true, false, false);
+      setSelectedFilter("Alphabetical");
       return setLoadedTeams(allTeams);
     }
     const filteredTeams = teams.filter(team => team.league === keyValue);
@@ -139,46 +101,53 @@ const Teams = () => {
     dropdownItems.forEach(el => el.classList.remove("HideLeague"));
     event.target.classList.add("HideLeague");
     setSelectedLeague(keyValue);
-    if (document.getElementById("TeamNameInput").value !== "") {
-      const searchFilter = filteredTeams.filter(
-        team =>
-          team.name
-            .toUpperCase()
-            .search(
-              document.getElementById("TeamNameInput").value.toUpperCase()
-            ) > -1
-      );
+    const searchValue = document.getElementById("TeamNameInput").value;
+    if (searchValue !== "") {
+      const searchFilter = nameSearchFilter(teams, searchValue);
       if (selectedFilter === "Established") {
-        document
-          .getElementById("AlphabeticalButton")
-          .classList.remove("SearchButtonActive");
-        document
-          .getElementById("EstablishedButton")
-          .classList.add("SearchButtonActive");
-        return setLoadedTeams(
-          searchFilter.sort((a, b) => a.established - b.established)
-        );
+        applyFilterStyles(false, true, false);
+        return setLoadedTeams(establishedFilter(searchFilter));
       }
+      applyFilterStyles(true, false, false);
+      setSelectedFilter("Alphabetical");
       return setLoadedTeams(searchFilter);
     }
     if (selectedFilter === "Established") {
-      document
-        .getElementById("AlphabeticalButton")
-        .classList.remove("SearchButtonActive");
-      document
-        .getElementById("EstablishedButton")
-        .classList.add("SearchButtonActive");
-      return setLoadedTeams(
-        filteredTeams.sort((a, b) => a.established - b.established)
-      );
+      applyFilterStyles(false, true, false);
+      return setLoadedTeams(establishedFilter(filteredTeams));
     }
+    if (selectedFilter === "Division") {
+      applyFilterStyles(false, false, true);
+      return setDivisionDetails(sortLeague(keyValue));
+    }
+    applyFilterStyles(true, false, false);
     setLoadedTeams(filteredTeams);
   };
 
   const onFilterDivision = () => {
-    const selectedLeagueTeams = allTeams.filter(
-      team => team.league === selectedLeague
+    applyFilterStyles(false, false, true);
+    setSelectedFilter("Division");
+    setDivisionDetails(sortLeague(selectedLeague));
+  };
+
+  // UTIL
+
+  const nameSearchFilter = (teams, value) => {
+    return teams.filter(
+      team => team.name.toUpperCase().search(value.toUpperCase()) > -1
     );
+  };
+
+  const alphabeticalFilter = teams => {
+    return teams.sort((a, b) => a.name.localeCompare(b.name));
+  };
+
+  const establishedFilter = teams => {
+    return teams.sort((a, b) => a.established - b.established);
+  };
+
+  const sortLeague = league => {
+    const selectedLeagueTeams = allTeams.filter(team => team.league === league);
     const selectedLeagueConferences = [
       ...new Set(selectedLeagueTeams.map(team => team.conference))
     ];
@@ -196,11 +165,38 @@ const Teams = () => {
           divisions.push({ name: division, teams: divisionTeams });
         }
       });
-      sortedTeams.push({ name: conference, divisions })
+      sortedTeams.push({ name: conference, divisions });
     });
-    setDivisionDetails(sortedTeams);
-    console.log(sortedTeams);
-    setSelectedFilter("Division");
+    return sortedTeams;
+  };
+
+  const applyFilterStyles = (alphabetical, established, division) => {
+    const alphabeticalButton = document.getElementById("AlphabeticalButton");
+    if (alphabetical) {
+      alphabeticalButton.classList.add("SearchButtonActive");
+    } else {
+      alphabeticalButton.classList.remove("SearchButtonActive");
+    }
+
+    const establishedButton = document.getElementById("EstablishedButton");
+    if (established) {
+      establishedButton.classList.add("SearchButtonActive");
+    } else {
+      establishedButton.classList.remove("SearchButtonActive");
+    }
+
+    const divisionButton = document.getElementById("DivisionButton");
+    const teamInput = document.getElementById("TeamNameInput");
+    if (divisionButton !== null) {
+      if (division) {
+        divisionButton.classList.add("SearchButtonActive");
+        teamInput.value = "";
+        teamInput.disabled = true;
+      } else {
+        divisionButton.classList.remove("SearchButtonActive");
+        teamInput.disabled = false;
+      }
+    }
   };
 
   const onToggleHierarchyView = async () => {
