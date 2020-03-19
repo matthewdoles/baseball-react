@@ -14,13 +14,14 @@ const Teams = () => {
   const [allTeams, setAllTeams] = useState();
   const [allAffiliates, setAllAffiliates] = useState(null);
 
-  const [selectableTeams, setSelectableTeams] = useState(null);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [selectedLeague, setSelectedLeague] = useState("League");
   const [selectedFilter, setSelectedFilter] = useState("Alphabetical");
   const [divisionDetails, setDivisionDetails] = useState();
   const [loadedTeams, setLoadedTeams] = useState();
+
   const [showHierarchyView, setShowHierarchyView] = useState(false);
+  const [selectableTeams, setSelectableTeams] = useState(null);
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -61,73 +62,25 @@ const Teams = () => {
   };
 
   const onFilterLeague = (keyValue, event) => {
-    let teams = [...allTeams];
     if (keyValue === "All") {
-      document
-        .getElementById("LeagueDropdown")
-        .classList.remove("SearchButtonActive");
-      const dropdownItems = Array.from(
-        document.getElementsByClassName("LeagueDropdownItem")
-      );
-      dropdownItems.forEach(el => el.classList.remove("HideLeague"));
-      dropdownItems[0].classList.add("HideLeague");
+      showHiddenLeagueItems(true);
       setSelectedLeague("League");
-      const searchValue = document.getElementById("TeamNameInput").value;
-      if (searchValue !== "") {
-        const searchFilter = nameSearchFilter(teams, searchValue);
-
-        if (selectedFilter === "Established") {
-          applyFilterStyles(false, true, false);
-          return setLoadedTeams(establishedFilter(searchFilter));
-        }
-        setSelectedFilter("Alphabetical");
-        return setLoadedTeams(searchFilter);
-      }
-      if (selectedFilter === "Established") {
-        applyFilterStyles(false, true, false);
-        return setLoadedTeams(establishedFilter(teams));
-      }
-      applyFilterStyles(true, false, false);
-      setSelectedFilter("Alphabetical");
-      return setLoadedTeams(allTeams);
+      return applyFilters([...allTeams], keyValue);
     }
-    const filteredTeams = teams.filter(team => team.league === keyValue);
-    document
-      .getElementById("LeagueDropdown")
-      .classList.add("SearchButtonActive");
-    const dropdownItems = Array.from(
-      document.getElementsByClassName("LeagueDropdownItem")
-    );
-    dropdownItems.forEach(el => el.classList.remove("HideLeague"));
+
+    showHiddenLeagueItems();
     event.target.classList.add("HideLeague");
     setSelectedLeague(keyValue);
-    const searchValue = document.getElementById("TeamNameInput").value;
-    if (searchValue !== "") {
-      const searchFilter = nameSearchFilter(teams, searchValue);
-      if (selectedFilter === "Established") {
-        applyFilterStyles(false, true, false);
-        return setLoadedTeams(establishedFilter(searchFilter));
-      }
-      applyFilterStyles(true, false, false);
-      setSelectedFilter("Alphabetical");
-      return setLoadedTeams(searchFilter);
-    }
-    if (selectedFilter === "Established") {
-      applyFilterStyles(false, true, false);
-      return setLoadedTeams(establishedFilter(filteredTeams));
-    }
-    if (selectedFilter === "Division") {
-      applyFilterStyles(false, false, true);
-      return setDivisionDetails(sortLeague(keyValue));
-    }
-    applyFilterStyles(true, false, false);
-    setLoadedTeams(filteredTeams);
+    applyFilters(
+      [...allTeams].filter(team => team.league === keyValue),
+      keyValue
+    );
   };
 
   const onFilterDivision = () => {
     applyFilterStyles(false, false, true);
     setSelectedFilter("Division");
-    setDivisionDetails(sortLeague(selectedLeague));
+    setDivisionDetails(sortLeagueIntoDivisions(selectedLeague));
   };
 
   // UTIL
@@ -146,7 +99,7 @@ const Teams = () => {
     return teams.sort((a, b) => a.established - b.established);
   };
 
-  const sortLeague = league => {
+  const sortLeagueIntoDivisions = league => {
     const selectedLeagueTeams = allTeams.filter(team => team.league === league);
     const selectedLeagueConferences = [
       ...new Set(selectedLeagueTeams.map(team => team.conference))
@@ -154,6 +107,7 @@ const Teams = () => {
     const selectedLeagueDivisions = [
       ...new Set(selectedLeagueTeams.map(team => team.division))
     ];
+
     const sortedTeams = [];
     selectedLeagueConferences.forEach(conference => {
       const divisions = [];
@@ -168,6 +122,35 @@ const Teams = () => {
       sortedTeams.push({ name: conference, divisions });
     });
     return sortedTeams;
+  };
+
+  const applyFilters = (teams, league) => {
+    const searchValue = document.getElementById("TeamNameInput").value;
+    if (searchValue !== "") {
+      const searchFilter = nameSearchFilter(teams, searchValue);
+      if (selectedFilter === "Established") {
+        applyFilterStyles(false, true, false);
+        return setLoadedTeams(establishedFilter(searchFilter));
+      }
+
+      applyFilterStyles(true, false, false);
+      setSelectedFilter("Alphabetical");
+      return setLoadedTeams(searchFilter);
+    }
+
+    if (selectedFilter === "Established") {
+      applyFilterStyles(false, true, false);
+      return setLoadedTeams(establishedFilter(teams));
+    }
+
+    if (selectedFilter === "Division" && league !== "All") {
+      applyFilterStyles(false, false, true);
+      return setDivisionDetails(sortLeagueIntoDivisions(league));
+    }
+
+    setSelectedFilter("Alphabetical");
+    applyFilterStyles(true, false, false);
+    return setLoadedTeams(teams);
   };
 
   const applyFilterStyles = (alphabetical, established, division) => {
@@ -199,6 +182,19 @@ const Teams = () => {
     }
   };
 
+  const showHiddenLeagueItems = (hideFirst = false) => {
+    document
+      .getElementById("LeagueDropdown")
+      .classList.remove("SearchButtonActive");
+    const dropdownItems = Array.from(
+      document.getElementsByClassName("LeagueDropdownItem")
+    );
+    dropdownItems.forEach(el => el.classList.remove("HideLeague"));
+    if (hideFirst) {
+      dropdownItems[0].classList.add("HideLeague");
+    }
+  };
+
   const onToggleHierarchyView = async () => {
     if (allAffiliates === null) {
       try {
@@ -209,15 +205,13 @@ const Teams = () => {
         setLoadedTeams(responseData.teams);
       } catch (error) {}
       setShowHierarchyView(true);
-    } else if (showHierarchyView) {
-      await setShowHierarchyView(false);
-      document
-        .getElementById("AlphabeticalButton")
-        .classList.add("SearchButtonActive");
-      setLoadedTeams(allTeams);
-    } else {
+    } else if (!showHierarchyView) {
       setShowHierarchyView(true);
       setLoadedTeams(allAffiliates);
+    } else {
+      await setShowHierarchyView(false);
+      applyFilterStyles(true, false, false);
+      setLoadedTeams(allTeams);
     }
   };
 
