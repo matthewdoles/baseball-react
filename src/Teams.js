@@ -14,12 +14,12 @@ const Teams = () => {
   const [allTeams, setAllTeams] = useState();
   const [allAffiliates, setAllAffiliates] = useState(null);
 
-  const [selectedTeam, setSelectedTeam] = useState(null);
   const [selectedLeague, setSelectedLeague] = useState("League");
   const [selectedFilter, setSelectedFilter] = useState("Alphabetical");
   const [divisionDetails, setDivisionDetails] = useState();
   const [loadedTeams, setLoadedTeams] = useState();
 
+  const [selectedTeam, setSelectedTeam] = useState("MLB");
   const [showHierarchyView, setShowHierarchyView] = useState(false);
   const [selectableTeams, setSelectableTeams] = useState(null);
 
@@ -221,26 +221,15 @@ const Teams = () => {
       setShowHierarchyView(toggle);
       setLoadedTeams(allAffiliates);
     } else {
-      setSelectedTeam(null);
-      if (selectedLeague !== "League") {
-        setLoadedTeams(allTeams.filter(team => team.league === selectedLeague));
-      } else {
-        setLoadedTeams(allTeams);
-      }
-
       await setShowHierarchyView(toggle);
-      if (selectedFilter === "Division") {
-        return onFilterDivision();
-      }
-      if (selectedFilter === "Established") {
-        return onFilterEstablished();
-      }
-      onFilterAlphabetical();
+      setLoadedTeams(allTeams);
+      setSelectedFilter("Alphabetical");
+      applyFilterStyles(true, false, false);
     }
   };
 
   const onTeamSelected = event => {
-    if (selectedTeam !== event.target.getAttribute("value")) {
+    if (selectedTeam !== event.target.getAttribute("value") && event.target.getAttribute("value") !== "MLB") {
       const teams = [...allAffiliates];
       if (document.getElementById(selectedTeam) !== null) {
         document.getElementById(selectedTeam).classList.remove("SelectedTeam");
@@ -251,9 +240,10 @@ const Teams = () => {
       );
       setSelectedTeam(event.target.getAttribute("value"));
     } else {
-      event.target.classList.remove("SelectedTeam");
+      document.getElementById(selectedTeam).classList.remove("SelectedTeam");
+      document.getElementById("MLB").classList.add("SelectedTeam");
       setLoadedTeams(allAffiliates);
-      setSelectedTeam(null);
+      setSelectedTeam("MLB");
     }
   };
 
