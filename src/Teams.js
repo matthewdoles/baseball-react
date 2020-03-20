@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 
+import Navigation from "./Navigation";
 import TeamSearch from "./TeamSearch";
 import TeamCard from "./TeamCard";
 import TeamDivision from "./TeamDivision";
 import TeamHierarchy from "./TeamHierarchy";
 import TeamSelection from "./TeamSelection";
-import { Button } from "react-bootstrap";
 import { useHttpClient } from "./hooks/http-hook";
 import "./Teams.css";
 
@@ -195,7 +195,15 @@ const Teams = () => {
     }
   };
 
-  const onToggleHierarchyView = async () => {
+  const showAll = () => {
+    onToggleHierarchyView(false);
+  }
+
+  const showHierarchy = () => {
+    onToggleHierarchyView(true);
+  }
+
+  const onToggleHierarchyView = async (toggle) => {
     if (allAffiliates === null) {
       try {
         const responseData = await sendRequest(
@@ -204,12 +212,12 @@ const Teams = () => {
         setAllAffiliates(responseData.teams);
         setLoadedTeams(responseData.teams);
       } catch (error) {}
-      setShowHierarchyView(true);
-    } else if (!showHierarchyView) {
-      setShowHierarchyView(true);
+      setShowHierarchyView(toggle);
+    } else if (toggle) {
+      setShowHierarchyView(toggle);
       setLoadedTeams(allAffiliates);
     } else {
-      await setShowHierarchyView(false);
+      await setShowHierarchyView(toggle);
       applyFilterStyles(true, false, false);
       setLoadedTeams(allTeams);
     }
@@ -235,9 +243,7 @@ const Teams = () => {
 
   return (
     <React.Fragment>
-      <Button variant="primary" onClick={onToggleHierarchyView}>
-        Toggle
-      </Button>
+      <Navigation allView={showAll} hierarchyView={showHierarchy}  />
       {isLoading && <div>loading...</div>}
       {!isLoading && loadedTeams && showHierarchyView && (
         <React.Fragment>
