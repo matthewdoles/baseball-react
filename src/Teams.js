@@ -103,10 +103,11 @@ const Teams = () => {
     const selectedLeagueTeams = allTeams.filter(team => team.league === league);
     const selectedLeagueConferences = [
       ...new Set(selectedLeagueTeams.map(team => team.conference))
-    ];
+    ].sort();
+    console.log(selectedLeagueConferences);
     const selectedLeagueDivisions = [
       ...new Set(selectedLeagueTeams.map(team => team.division))
-    ];
+    ].sort();
 
     const sortedTeams = [];
     selectedLeagueConferences.forEach(conference => {
@@ -185,25 +186,28 @@ const Teams = () => {
   const showHiddenLeagueItems = (hideFirst = false) => {
     document
       .getElementById("LeagueDropdown")
-      .classList.remove("SearchButtonActive");
+      .classList.add("SearchButtonActive");
     const dropdownItems = Array.from(
       document.getElementsByClassName("LeagueDropdownItem")
     );
     dropdownItems.forEach(el => el.classList.remove("HideLeague"));
     if (hideFirst) {
+      document
+        .getElementById("LeagueDropdown")
+        .classList.remove("SearchButtonActive");
       dropdownItems[0].classList.add("HideLeague");
     }
   };
 
   const showAll = () => {
     onToggleHierarchyView(false);
-  }
+  };
 
   const showHierarchy = () => {
     onToggleHierarchyView(true);
-  }
+  };
 
-  const onToggleHierarchyView = async (toggle) => {
+  const onToggleHierarchyView = async toggle => {
     if (allAffiliates === null) {
       try {
         const responseData = await sendRequest(
@@ -217,9 +221,21 @@ const Teams = () => {
       setShowHierarchyView(toggle);
       setLoadedTeams(allAffiliates);
     } else {
+      setSelectedTeam(null);
+      if (selectedLeague !== "League") {
+        setLoadedTeams(allTeams.filter(team => team.league === selectedLeague));
+      } else {
+        setLoadedTeams(allTeams);
+      }
+
       await setShowHierarchyView(toggle);
-      applyFilterStyles(true, false, false);
-      setLoadedTeams(allTeams);
+      if (selectedFilter === "Division") {
+        return onFilterDivision();
+      }
+      if (selectedFilter === "Established") {
+        return onFilterEstablished();
+      }
+      onFilterAlphabetical();
     }
   };
 
@@ -243,7 +259,7 @@ const Teams = () => {
 
   return (
     <React.Fragment>
-      <Navigation allView={showAll} hierarchyView={showHierarchy}  />
+      <Navigation allView={showAll} hierarchyView={showHierarchy} />
       {isLoading && <div>loading...</div>}
       {!isLoading && loadedTeams && showHierarchyView && (
         <React.Fragment>
