@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 
 import TeamSearch from "./TeamSearch";
 import TeamCard from "./TeamCard";
+import TeamDivision from "./TeamDivision";
 import TeamHierarchy from "./TeamHierarchy";
 import TeamSelection from "./TeamSelection";
 import { Button } from "react-bootstrap";
 import { useHttpClient } from "./hooks/http-hook";
 import "./Teams.css";
-import TeamDivision from "./TeamDivision";
 
 const Teams = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -281,19 +281,16 @@ const Teams = () => {
               ))}
             </ul>
           )}
-          {selectedFilter === "Division" && (
-            <React.Fragment>
-              {divisionDetails.map(conference => {
-                return (
-                  <TeamDivision
-                    conference={conference.name}
-                    divisions={conference.divisions}
-                    key={conference.name}
-                  />
-                );
-              })}
-            </React.Fragment>
-          )}
+          {selectedFilter === "Division" &&
+            divisionDetails.map(conference => {
+              return (
+                <TeamDivision
+                  conference={conference.name}
+                  divisions={conference.divisions}
+                  key={conference.name}
+                />
+              );
+            })}
         </React.Fragment>
       )}
     </React.Fragment>

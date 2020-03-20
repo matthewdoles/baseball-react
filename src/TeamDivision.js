@@ -6,7 +6,17 @@ import "./TeamDivision.css";
 const TeamDivision = props => {
   return (
     <div>
-      <p className="ConfereceTitle">{props.conference}</p>
+      <div className="ConferenceBanner">
+        <img
+          src={require(`./images/Leagues/${props.conference.replace(
+            /\s/g,
+            ""
+          )}.png`)}
+          alt=""
+          className="ConferenceImage"
+        />
+        <p className="ConfereceTitle">{props.conference}</p>
+      </div>
       {props.divisions.map(division => (
         <div key={division.name}>
           <p class="DivisionTitle">

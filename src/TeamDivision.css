@@ -1,9 +1,16 @@
-.ConfereceTitle {
-  margin: auto;
+.ConferenceBanner {
   width: 90%;
+  margin: auto;
+  align-items: center;
+  display: flex;
+}
+.ConferenceImage {
+  height: 100px;
+  margin-right: 12px;
+}
+.ConfereceTitle {
+  margin: 0;
   font-size: 32px;
-  margin-top: 30px;
-  margin-bottom: 10px;
   text-align: left;
 }
 
@@ -13,7 +20,8 @@
   color: rgb(128, 126, 126);
   width: 90%;
   margin: auto;
-  margin-top: 18px;
+  margin-top: 12px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
 }
