@@ -25,15 +25,19 @@ const Teams = () => {
 
   useEffect(() => {
     const fetchTeams = async () => {
-      try {
-        const responseData = await sendRequest("http://localhost:5000/teams");
-        setAllTeams(responseData.teams);
-        setLoadedTeams(responseData.teams);
-        const mlbTeams = responseData.teams.filter(
-          team => team.league === "MLB"
-        );
-        setSelectableTeams(mlbTeams);
-      } catch (error) {}
+      let responseData;
+      if (sessionStorage.getItem("teams") === null) {
+        try {
+          responseData = await sendRequest("http://localhost:5000/teams");
+          sessionStorage.setItem("teams", JSON.stringify(responseData));
+        } catch (error) {}
+      } else {
+        responseData = JSON.parse(sessionStorage.getItem("teams"));
+      }
+      setAllTeams(responseData.teams);
+      setLoadedTeams(responseData.teams);
+      const mlbTeams = responseData.teams.filter(team => team.league === "MLB");
+      setSelectableTeams(mlbTeams);
     };
     fetchTeams();
   }, [sendRequest]);
@@ -209,13 +213,19 @@ const Teams = () => {
 
   const onToggleHierarchyView = async toggle => {
     if (allAffiliates === null) {
-      try {
-        const responseData = await sendRequest(
-          "http://localhost:5000/teams/affiliates"
-        );
-        setAllAffiliates(responseData.teams);
-        setLoadedTeams(responseData.teams);
-      } catch (error) {}
+      let responseData;
+      if (sessionStorage.getItem("affiliates") === null) {
+        try {
+          responseData = await sendRequest(
+            "http://localhost:5000/teams/affiliates"
+          );
+          sessionStorage.setItem("affiliates", JSON.stringify(responseData));
+        } catch (error) {}
+      } else {
+        responseData = JSON.parse(sessionStorage.getItem("affiliates"));
+      }
+      setAllAffiliates(responseData.teams);
+      setLoadedTeams(responseData.teams);
       setShowHierarchyView(toggle);
     } else if (toggle) {
       setShowHierarchyView(toggle);
@@ -224,12 +234,16 @@ const Teams = () => {
       await setShowHierarchyView(toggle);
       setLoadedTeams(allTeams);
       setSelectedFilter("Alphabetical");
+      setSelectedLeague("League");
       applyFilterStyles(true, false, false);
     }
   };
 
   const onTeamSelected = event => {
-    if (selectedTeam !== event.target.getAttribute("value") && event.target.getAttribute("value") !== "MLB") {
+    if (
+      selectedTeam !== event.target.getAttribute("value") &&
+      event.target.getAttribute("value") !== "MLB"
+    ) {
       const teams = [...allAffiliates];
       if (document.getElementById(selectedTeam) !== null) {
         document.getElementById(selectedTeam).classList.remove("SelectedTeam");

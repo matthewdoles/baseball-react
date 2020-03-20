@@ -1,13 +1,23 @@
-import React from 'react';
+import React from "react";
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 
-import Teams from './Teams';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import Teams from "./Teams";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <Teams />
+      <BrowserRouter>
+        <main>
+          <Switch>
+            <Route path="/" exact>
+              <Teams />
+            </Route>
+            <Redirect to="/" />
+          </Switch>
+        </main>
+      </BrowserRouter>
     </div>
   );
 }
