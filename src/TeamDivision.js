@@ -28,6 +28,7 @@ const TeamDivision = props => {
               <TeamCard
                 key={team.id}
                 name={team.name}
+                url={team.url}
                 est={team.established}
                 logo={"./images/" + team.photo}
                 color={team.photoColor}
