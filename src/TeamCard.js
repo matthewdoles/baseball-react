@@ -6,15 +6,12 @@ import "./TeamCard.css";
 
 const TeamCard = props => {
   return (
-    <Link to={`/team/${props.url}`}>
+    <Link to={`/team/${props.url}`} className="TeamLink">
       <Card className="TeamCard">
         <Card.Img
           variant="top"
           className="TeamCardImage"
           src={require(`${props.logo}`)}
-          style={{
-            backgroundColor: props.color
-          }}
         />
         <Card.Body className="TeamCardBody">
           <Card.Title>{props.name}</Card.Title>
