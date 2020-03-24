@@ -279,6 +279,7 @@ const Teams = () => {
                 logo={"./images/" + team.photo}
                 league={team.league}
                 affiliates={team.affiliates}
+                url={team.url}
               />
             ))}
           </ul>

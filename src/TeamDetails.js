@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import Map from "./Map";
 import { Card, Navbar, Nav } from "react-bootstrap";
@@ -7,19 +7,24 @@ import "./TeamDetails.css";
 
 const TeamDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedTeam, setSelectedTeam] = useState();
+  const [selectedTeam, setSelectedTeam] = useState(null);
   const teamName = useParams().team;
+  const history = useHistory();
 
   useEffect(() => {
     setIsLoading(true);
     const responseData = JSON.parse(sessionStorage.getItem("teams"));
-    setSelectedTeam(responseData.teams.find(team => team.url === teamName));
+    const team = responseData.teams.find(team => team.url === teamName);
+    if (team === undefined) {
+      return history.push("/");
+    }
+    setSelectedTeam(team);
     setIsLoading(false);
-  }, [teamName]);
+  }, [teamName, history]);
 
   return (
     <React.Fragment>
-      {!isLoading && (
+      {!isLoading && selectedTeam !== null && (
         <React.Fragment>
           <Navbar
             style={{
