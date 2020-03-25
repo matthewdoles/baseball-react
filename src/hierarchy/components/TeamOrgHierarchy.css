@@ -1,15 +1,15 @@
-.TeamHierarchy {
+.TeamOrgHierarchy {
   padding: 10px 0;
 }
 
-.TeamListItemTitle {
+.TeamListTitle {
   text-align: left;
   font-size: 18px;
   overflow: hidden;
   color: rgb(128, 126, 126);
 }
 
-.TeamListItemTitle span:after {
+.TeamListTitle span:after {
   content:"";
   display: inline-block;
   height: .70em;

@@ -1,27 +1,19 @@
 import React, { useEffect, useState } from "react";
 
-import Navigation from "./Navigation";
-import TeamSearch from "./TeamSearch";
-import TeamCard from "./TeamCard";
-import TeamDivision from "./TeamDivision";
-import TeamHierarchy from "./TeamHierarchy";
-import TeamSelection from "./TeamSelection";
-import { useHttpClient } from "./hooks/http-hook";
+import Navigation from "../Navigation";
+import TeamSearch from "../TeamSearch";
+import TeamCard from "../TeamCard";
+import TeamDivision from "../TeamDivision";
+import { useHttpClient } from "../hooks/http-hook";
 import "./Teams.css";
 
 const Teams = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [allTeams, setAllTeams] = useState();
-  const [allAffiliates, setAllAffiliates] = useState(null);
-
   const [selectedLeague, setSelectedLeague] = useState("League");
   const [selectedFilter, setSelectedFilter] = useState("Alphabetical");
   const [divisionDetails, setDivisionDetails] = useState();
   const [loadedTeams, setLoadedTeams] = useState();
-
-  const [selectedTeam, setSelectedTeam] = useState("MLB");
-  const [showHierarchyView, setShowHierarchyView] = useState(false);
-  const [selectableTeams, setSelectableTeams] = useState(null);
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -36,8 +28,6 @@ const Teams = () => {
       }
       setAllTeams(responseData.teams);
       setLoadedTeams(responseData.teams);
-      const mlbTeams = responseData.teams.filter(team => team.league === "MLB");
-      setSelectableTeams(mlbTeams);
     };
     fetchTeams();
   }, [sendRequest]);
@@ -203,89 +193,11 @@ const Teams = () => {
     }
   };
 
-  const showAll = () => {
-    onToggleHierarchyView(false);
-  };
-
-  const showHierarchy = () => {
-    onToggleHierarchyView(true);
-  };
-
-  const onToggleHierarchyView = async toggle => {
-    if (allAffiliates === null) {
-      let responseData;
-      if (sessionStorage.getItem("affiliates") === null) {
-        try {
-          responseData = await sendRequest(
-            "http://localhost:5000/teams/affiliates"
-          );
-          sessionStorage.setItem("affiliates", JSON.stringify(responseData));
-        } catch (error) {}
-      } else {
-        responseData = JSON.parse(sessionStorage.getItem("affiliates"));
-      }
-      setAllAffiliates(responseData.teams);
-      setLoadedTeams(responseData.teams);
-      setShowHierarchyView(toggle);
-    } else if (toggle) {
-      setShowHierarchyView(toggle);
-      setLoadedTeams(allAffiliates);
-    } else {
-      await setShowHierarchyView(toggle);
-      setLoadedTeams(allTeams);
-      setSelectedFilter("Alphabetical");
-      setSelectedLeague("League");
-      applyFilterStyles(true, false, false);
-    }
-  };
-
-  const onTeamSelected = event => {
-    if (
-      selectedTeam !== event.target.getAttribute("value") &&
-      event.target.getAttribute("value") !== "MLB"
-    ) {
-      const teams = [...allAffiliates];
-      if (document.getElementById(selectedTeam) !== null) {
-        document.getElementById(selectedTeam).classList.remove("SelectedTeam");
-      }
-      event.target.classList.add("SelectedTeam");
-      setLoadedTeams(
-        teams.filter(team => team.name === event.target.getAttribute("value"))
-      );
-      setSelectedTeam(event.target.getAttribute("value"));
-    } else {
-      document.getElementById(selectedTeam).classList.remove("SelectedTeam");
-      document.getElementById("MLB").classList.add("SelectedTeam");
-      setLoadedTeams(allAffiliates);
-      setSelectedTeam("MLB");
-    }
-  };
-
   return (
     <React.Fragment>
-      <Navigation allView={showAll} hierarchyView={showHierarchy} />
+      <Navigation />
       {isLoading && <div>loading...</div>}
-      {!isLoading && loadedTeams && showHierarchyView && (
-        <React.Fragment>
-          <TeamSelection
-            teams={selectableTeams}
-            teamSelected={onTeamSelected}
-          />
-          <ul className="TeamList">
-            {loadedTeams.map(team => (
-              <TeamHierarchy
-                key={team.id}
-                name={team.name}
-                logo={"./images/" + team.photo}
-                league={team.league}
-                affiliates={team.affiliates}
-                url={team.url}
-              />
-            ))}
-          </ul>
-        </React.Fragment>
-      )}
-      {!isLoading && loadedTeams && !showHierarchyView && (
+      {!isLoading && loadedTeams && (
         <React.Fragment>
           <TeamSearch
             nameChange={onNameChange}

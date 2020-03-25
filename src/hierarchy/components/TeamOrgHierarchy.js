@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import "./TeamHierarchy.css";
+import "./TeamOrgHierarchy.css";
 
 const TeamHierarchy = props => {
   return (
-    <div className="TeamHierarchy">
-      <p className="TeamListItemTitle">
+    <div className="TeamOrgHierarchy">
+      <p className="TeamListTitle">
         <span>{props.name}</span>
       </p>
       <Link to={`/team/${props.url}`} className="TeamLink">
         <div key={props.id} className="TeamListItem">
-          <img src={require(`${props.logo}`)} alt="" />
+          <img src={require(`../../images/${props.photo}`)} alt="" />
           <span className="ItemName">{props.name}</span>
           <span className="ItemLeague">{props.league}</span>
         </div>
@@ -26,7 +26,7 @@ const TeamHierarchy = props => {
                 ""
               )}`}
             >
-              <img src={require(`./images/${affiliate.photo}`)} alt="" />
+              <img src={require(`../../images/${affiliate.photo}`)} alt="" />
               <span className="ItemName">{affiliate.name}</span>
               <span className="ItemLeague">{affiliate.league}</span>
             </div>

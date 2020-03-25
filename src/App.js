@@ -1,8 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 
-import Teams from "./Teams";
+import Teams from "./all-teams/Teams";
 import TeamDetails from "./TeamDetails";
+import Hierarchy from "./hierarchy/Hierarchy"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -14,6 +15,9 @@ function App() {
           <Switch>
             <Route path="/" exact>
               <Teams />
+            </Route>
+            <Route path="/hierarchy" exact>
+              <Hierarchy />
             </Route>
             <Route path="/team/:team" exact>
               <TeamDetails />
