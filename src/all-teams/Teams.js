@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import Navigation from "../Navigation";
-import TeamSearch from "../TeamSearch";
-import TeamCard from "../TeamCard";
-import TeamDivision from "../TeamDivision";
+import Navigation from "../shared/Navigation";
+import TeamSearch from "./components/TeamSearch";
+import TeamCard from "../shared/TeamCard";
+import TeamDivision from "./components/TeamDivision";
 import { useHttpClient } from "../hooks/http-hook";
 import "./Teams.css";
 
@@ -215,7 +215,7 @@ const Teams = () => {
                   name={team.name}
                   url={team.url}
                   est={team.established}
-                  logo={"./images/" + team.photo}
+                  photo={team.photo}
                   color={team.photoColor}
                 />
               ))}

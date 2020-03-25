@@ -7,7 +7,7 @@ const TeamSelection = props => {
     <div className="TeamSelect">
       <ul className="TeamSelectList">
         <img
-          src={require("./images/Leagues/MLB.png")}
+          src={require("../../images/Leagues/MLB.png")}
           alt=""
           id="MLB"
           value="MLB"
@@ -16,7 +16,7 @@ const TeamSelection = props => {
         />
         {props.teams.map(team => (
           <img
-            src={require(`./images/${team.photo}`)}
+            src={require(`../../images/${team.photo}`)}
             alt=""
             key={team.name}
             id={team.name}

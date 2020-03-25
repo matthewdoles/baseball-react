@@ -9,8 +9,8 @@ const Navigation = props => {
       <Navbar.Brand onClick={props.allView}>Baseball Affiliates</Navbar.Brand>
       <Navbar.Collapse>
         <Nav>
-          <Nav.Link onClick={props.allView}>All Teams</Nav.Link>
-          <Nav.Link onClick={props.hierarchyView}>Hierarchy</Nav.Link>
+          <Nav.Link href="/">All Teams</Nav.Link>
+          <Nav.Link href="/hierarchy">Hierarchy</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

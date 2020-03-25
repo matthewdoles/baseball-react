@@ -1,6 +1,6 @@
 import React from "react";
 
-import TeamCard from "./TeamCard";
+import TeamCard from "../../shared/TeamCard";
 import "./TeamDivision.css";
 
 const TeamDivision = props => {
@@ -8,7 +8,7 @@ const TeamDivision = props => {
     <div>
       <div className="ConferenceBanner">
         <img
-          src={require(`./images/Leagues/${props.conference.replace(
+          src={require(`../../images/Leagues/${props.conference.replace(
             /\s/g,
             ""
           )}.png`)}
@@ -30,7 +30,7 @@ const TeamDivision = props => {
                 name={team.name}
                 url={team.url}
                 est={team.established}
-                logo={"./images/" + team.photo}
+                photo={team.photo}
                 color={team.photoColor}
               />
             ))}

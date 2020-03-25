@@ -11,7 +11,7 @@ const TeamCard = props => {
         <Card.Img
           variant="top"
           className="TeamCardImage"
-          src={require(`${props.logo}`)}
+          src={require(`../images/${props.photo}`)}
         />
         <Card.Body className="TeamCardBody">
           <Card.Title>{props.name}</Card.Title>

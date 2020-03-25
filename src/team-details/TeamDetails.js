@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 
-import Map from "./Map";
+import Map from "../shared/Map";
 import { Card, Navbar, Nav } from "react-bootstrap";
 import "./TeamDetails.css";
 
@@ -51,7 +51,7 @@ const TeamDetails = () => {
                 <Card.Img
                   variant="top"
                   className="TeamLogoImage"
-                  src={require(`./images/${selectedTeam.photo}`)}
+                  src={require(`../images/${selectedTeam.photo}`)}
                   style={{
                     backgroundColor: selectedTeam.color
                   }}

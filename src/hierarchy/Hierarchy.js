@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import Navigation from "../Navigation";
+import Navigation from "../shared/Navigation";
 import TeamOrgHierarchy from "./components/TeamOrgHierarchy";
-import TeamSelection from "../TeamSelection";
+import TeamSelection from "./components/TeamSelection";
 import { useHttpClient } from "../hooks/http-hook";
 import "./Hierarchy.css";
 
