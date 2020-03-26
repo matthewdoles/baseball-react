@@ -59,10 +59,9 @@ const Hierarchy = () => {
 
   return (
     <React.Fragment>
-      <Navigation
-      />
+      <Navigation hierarchyActive={true} />
       {isLoading && <div>loading...</div>}
-      {!isLoading && filteredTeams && (
+      {!isLoading && filteredTeams && selectableTeams && (
         <React.Fragment>
           <TeamSelection
             teams={selectableTeams}

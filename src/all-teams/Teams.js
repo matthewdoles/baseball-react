@@ -195,7 +195,7 @@ const Teams = () => {
 
   return (
     <React.Fragment>
-      <Navigation />
+      <Navigation allTeamsActive={true} />
       {isLoading && <div>loading...</div>}
       {!isLoading && loadedTeams && (
         <React.Fragment>

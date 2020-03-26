@@ -1,3 +1,8 @@
 .Navigation {
   height: 50px;
 }
+
+.ActiveLink {
+  color: #007bff !important;
+  font-weight: bold;
+}

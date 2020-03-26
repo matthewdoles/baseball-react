@@ -3,23 +3,28 @@ import { useParams, useHistory } from "react-router-dom";
 
 import Map from "../shared/Map";
 import { Card, Navbar, Nav } from "react-bootstrap";
+import { useHttpClient } from "../hooks/http-hook";
 import "./TeamDetails.css";
 
 const TeamDetails = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [selectedTeam, setSelectedTeam] = useState(null);
   const teamName = useParams().team;
   const history = useHistory();
 
-  useEffect(() => {
-    setIsLoading(true);
-    const responseData = JSON.parse(sessionStorage.getItem("teams"));
+  useEffect(async () => {
+    let responseData = JSON.parse(sessionStorage.getItem("teams"));
+    if (responseData === null) {
+      try {
+        responseData = await sendRequest("http://localhost:5000/teams");
+        sessionStorage.setItem("teams", JSON.stringify(responseData));
+      } catch (error) {}
+    }
     const team = responseData.teams.find(team => team.url === teamName);
     if (team === undefined) {
       return history.push("/");
     }
     setSelectedTeam(team);
-    setIsLoading(false);
   }, [teamName, history]);
 
   return (

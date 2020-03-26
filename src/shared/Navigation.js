@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Navbar, Nav } from "react-bootstrap";
 import "./Navigation.css";
@@ -9,8 +9,20 @@ const Navigation = props => {
       <Navbar.Brand onClick={props.allView}>Baseball Affiliates</Navbar.Brand>
       <Navbar.Collapse>
         <Nav>
-          <Nav.Link href="/">All Teams</Nav.Link>
-          <Nav.Link href="/hierarchy">Hierarchy</Nav.Link>
+          {props.allTeamsActive === true ? (
+            <Nav.Link className="ActiveLink" href="/">
+              All Teams
+            </Nav.Link>
+          ) : (
+            <Nav.Link href="/">All Teams</Nav.Link>
+          )}
+          {props.hierarchyActive === true ? (
+            <Nav.Link className="ActiveLink" href="/hierarchy">
+              Hierarchy
+            </Nav.Link>
+          ) : (
+            <Nav.Link href="/hierarchy">Hierarchy</Nav.Link>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
