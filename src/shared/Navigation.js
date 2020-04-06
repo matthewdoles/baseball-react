@@ -9,20 +9,18 @@ const Navigation = props => {
       <Navbar.Brand onClick={props.allView}>Baseball Affiliates</Navbar.Brand>
       <Navbar.Collapse>
         <Nav>
-          {props.allTeamsActive === true ? (
-            <Nav.Link className="ActiveLink" href="/">
-              All Teams
-            </Nav.Link>
-          ) : (
-            <Nav.Link href="/">All Teams</Nav.Link>
-          )}
-          {props.hierarchyActive === true ? (
-            <Nav.Link className="ActiveLink" href="/hierarchy">
-              Hierarchy
-            </Nav.Link>
-          ) : (
-            <Nav.Link href="/hierarchy">Hierarchy</Nav.Link>
-          )}
+          <Nav.Link
+            className={props.allTeamsActive ? "ActiveLink" : null}
+            href="/"
+          >
+            All Teams
+          </Nav.Link>
+          <Nav.Link
+            className={props.hierarchyActive ? "ActiveLink" : null}
+            href="/hierarchy"
+          >
+            Hierarchy
+          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
