@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 
 import Map from '../shared/Map';
 import { Card, Navbar, Nav, Modal, Button } from 'react-bootstrap';
@@ -12,17 +12,16 @@ const TeamDetails = () => {
   const [errorModal, setErrorModal] = useState(false);
 
   const teamName = useParams().team;
-  const history = useHistory();
 
   const showErrorModal = () => setErrorModal(true);
 
-  useEffect(async () => {
+  const fetchTeam = useCallback(async () => {
     let responseData = JSON.parse(sessionStorage.getItem('teams'));
     if (responseData === null) {
       try {
         responseData = await sendRequest('http://localhost:5000/teams');
-        sessionStorage.setItem('teams', JSON.stringify(responseData));
       } catch (error) {}
+      sessionStorage.setItem('teams', JSON.stringify(responseData));
     }
     const team = responseData.teams.find((team) => team.url === teamName);
     if (team === undefined) {
@@ -30,7 +29,11 @@ const TeamDetails = () => {
     } else {
       setSelectedTeam(team);
     }
-  }, [teamName, history]);
+  }, [sendRequest, teamName]);
+
+  useEffect(() => {
+    fetchTeam();
+  }, [fetchTeam]);
 
   return (
     <React.Fragment>
@@ -91,7 +94,7 @@ const TeamDetails = () => {
                 </Card.Header>
                 <Card.Body>
                   <div className='DetailsBody'>
-                    <div class='DetailsLeft'>
+                    <div className='DetailsLeft'>
                       <p>
                         <b>Established:</b> {selectedTeam.established}
                       </p>
@@ -106,7 +109,7 @@ const TeamDetails = () => {
                         <b>Address:</b> {selectedTeam.address}
                       </p>
                     </div>
-                    <div class='DetailsRight'>
+                    <div className='DetailsRight'>
                       <p>
                         <b>Organization:</b> {selectedTeam.league}
                       </p>

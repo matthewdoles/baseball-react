@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import Navigation from '../shared/Navigation';
 import TeamSearch from './components/TeamSearch';
@@ -15,11 +15,7 @@ const Teams = () => {
   const [divisionDetails, setDivisionDetails] = useState();
   const [loadedTeams, setLoadedTeams] = useState();
 
-  useEffect(() => {
-    fetchTeams();
-  }, []);
-
-  const fetchTeams = async () => {
+  const fetchTeams = useCallback(async () => {
     let responseData;
     if (sessionStorage.getItem('teams') === null) {
       try {
@@ -31,7 +27,11 @@ const Teams = () => {
     }
     setAllTeams(responseData.teams);
     setLoadedTeams(responseData.teams);
-  };
+  }, [sendRequest]);
+
+  useEffect(() => {
+    fetchTeams();
+  }, [fetchTeams]);
 
   const onNameChange = async (event) => {
     const filteredResults = nameSearchFilter([...allTeams], event.target.value);
