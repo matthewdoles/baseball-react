@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import Map from '../shared/Map';
 import Navigation from '../shared/Navigation';
+import TeamDetailsNavigation from './components/TeamDetailsNavigation';
 import { Card, Modal, Button } from 'react-bootstrap';
 import { useHttpClient } from '../hooks/http-hook';
 import './TeamDetails.css';
@@ -12,7 +13,6 @@ const TeamDetails = () => {
   const [allTeams, setAllTeams] = useState(null);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [errorModal, setErrorModal] = useState(false);
-  const history = useHistory();
   const teamName = useParams().team;
 
   const showErrorModal = () => setErrorModal(true);
@@ -38,22 +38,6 @@ const TeamDetails = () => {
     fetchTeam();
   }, [fetchTeam]);
 
-  const findPrevTeam = () => {
-    const currentIndex = allTeams.findIndex(
-      (team) => team.id === selectedTeam.id
-    );
-    const previousTeam = allTeams[currentIndex - 1];
-    history.push(`/team/${previousTeam.url}`);
-  };
-
-  const findNextTeam = () => {
-    const currentIndex = allTeams.findIndex(
-      (team) => team.id === selectedTeam.id
-    );
-    const nextTeam = allTeams[currentIndex + 1];
-    history.push(`/team/${nextTeam.url}`);
-  };
-
   return (
     <React.Fragment>
       <Modal show={errorModal} onHide={showErrorModal}>
@@ -71,27 +55,7 @@ const TeamDetails = () => {
         <React.Fragment>
           <Navigation />
           <div className='Container'>
-            <div
-              style={{
-                backgroundColor: selectedTeam.photoColor,
-                height: '50px',
-                display: 'flex',
-                margin: 'auto',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '1rem',
-              }}
-            >
-              <p className='TeamDetailsNavigationItem' onClick={findPrevTeam}>
-                PREVIOUS
-              </p>
-              <p className='TeamDetailsNavigationItem'>|</p>
-              <p className='TeamDetailsNavigationItem'>RANDOM</p>
-              <p className='TeamDetailsNavigationItem'>|</p>
-              <p className='TeamDetailsNavigationItem' onClick={findNextTeam}>
-                NEXT
-              </p>
-            </div>
+            <TeamDetailsNavigation allTeams={allTeams} selectedTeam={selectedTeam}/>
             <div className='TeamDetails'>
               <div className='C1'>
                 <Card className='TeamDetailCard'>

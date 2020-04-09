@@ -1,0 +1,16 @@
+.TeamDetails-Navigation {
+  height: 50px;
+  display: flex;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.TeamDetails-NavigationItem {
+  color: white;
+  margin: 0;
+  font-size: 16px;
+  margin-right: 16px;
+  font-weight: bold;
+}
