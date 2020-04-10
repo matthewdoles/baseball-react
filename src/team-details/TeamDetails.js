@@ -2,9 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Map from '../shared/Map';
+import ErrorModal from '../shared/ErrorModal';
 import Navigation from '../shared/Navigation';
 import TeamDetailsNavigation from './components/TeamDetailsNavigation';
-import { Card, Modal, Button } from 'react-bootstrap';
+import TeamDetailsCardHeader from './components/TeamDetailsCardHeader';
+import { Card } from 'react-bootstrap';
 import { useHttpClient } from '../hooks/http-hook';
 import './TeamDetails.css';
 
@@ -40,22 +42,24 @@ const TeamDetails = () => {
 
   return (
     <React.Fragment>
-      <Modal show={errorModal} onHide={showErrorModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Error</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Sorry, can't seem to find that team.</Modal.Body>
-        <Modal.Footer>
-          <Button variant='danger' href='/' onClick={showErrorModal}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <ErrorModal
+        show={errorModal}
+        title='Error'
+        buttonText='Close'
+        variant='danger'
+        link='/'
+        onClick={showErrorModal}
+      >
+        Sorry, can't seem to find that team.
+      </ErrorModal>
       {!isLoading && selectedTeam !== null && (
         <React.Fragment>
           <Navigation />
           <div className='Container'>
-            <TeamDetailsNavigation allTeams={allTeams} selectedTeam={selectedTeam}/>
+            <TeamDetailsNavigation
+              allTeams={allTeams}
+              selectedTeam={selectedTeam}
+            />
             <div className='TeamDetails'>
               <div className='C1'>
                 <Card className='TeamDetailCard'>
@@ -71,14 +75,9 @@ const TeamDetails = () => {
               </div>
               <div className='C2'>
                 <Card className='TeamDetailCard'>
-                  <Card.Header
-                    className='TeamDetailCardHeader'
-                    style={{
-                      backgroundColor: selectedTeam.photoColor,
-                    }}
-                  >
+                  <TeamDetailsCardHeader color={selectedTeam.photoColor}>
                     {selectedTeam.name}
-                  </Card.Header>
+                  </TeamDetailsCardHeader>
                   <Card.Body>
                     <div className='DetailsBody'>
                       <div className='DetailsLeft'>
@@ -113,16 +112,9 @@ const TeamDetails = () => {
               </div>
               <div className='C3'>
                 <Card className='TeamDetailCard'>
-                  <Card.Header
-                    className='TeamDetailCardHeader'
-                    style={{
-                      backgroundColor: selectedTeam.photoColor,
-                      color: 'white',
-                      fontSize: '20px',
-                    }}
-                  >
+                  <TeamDetailsCardHeader color={selectedTeam.photoColor}>
                     {selectedTeam.stadium}
-                  </Card.Header>
+                  </TeamDetailsCardHeader>
                   <Card.Body>
                     <Map
                       lat={selectedTeam.location.latitude}

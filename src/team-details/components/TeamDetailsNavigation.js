@@ -17,7 +17,7 @@ const TeamDetailsNavigation = (props) => {
       (team) => team.id === props.selectedTeam.id
     );
 
-    if (currentIndex === props.allTeams.length) {
+    if (currentIndex === props.allTeams.length - 1) {
       setDisableNext(true);
     }
     if (currentIndex === 0) {
