@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
 
-import Navigation from '../shared/Navigation';
-import TeamSearch from './components/TeamSearch';
 import TeamCard from '../shared/TeamCard';
-import TeamDivision from './components/TeamDivision';
+import Navigation from '../shared/Navigation';
+import TeamSearch from './components/Teams-Search';
+import TeamDivision from './components/Teams-Division';
 import { useHttpClient } from '../hooks/http-hook';
 import './Teams.css';
 
