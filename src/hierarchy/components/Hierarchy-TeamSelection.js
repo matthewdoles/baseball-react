@@ -1,23 +1,23 @@
-import React from "react";
+import React from 'react';
 
-import "./Hierarchy-TeamSelection.css";
+import './Hierarchy-TeamSelection.css';
 
-const TeamSelection = props => {
+const TeamSelection = (props) => {
   return (
-    <div className="TeamSelect">
-      <ul className="TeamSelectList">
+    <div className='TeamSelect'>
+      <ul className='TeamSelectList'>
         <img
-          src={require("../../images/Leagues/MLB.png")}
-          alt=""
-          id="MLB"
-          value="MLB"
+          src={require('../../images/Leagues/MLB.png')}
+          alt=''
+          id='MLB'
+          value='MLB'
           onClick={props.teamSelected}
-          className="SelectedTeam"
+          className='SelectedTeam'
         />
-        {props.teams.map(team => (
+        {props.teams.map((team) => (
           <img
             src={require(`../../images/${team.photo}`)}
-            alt=""
+            alt=''
             key={team.name}
             id={team.name}
             value={team.name}

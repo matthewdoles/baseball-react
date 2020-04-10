@@ -19,7 +19,7 @@ const Teams = () => {
     let responseData;
     if (sessionStorage.getItem('teams') === null) {
       try {
-        responseData = await sendRequest("http://localhost:5000/teams");
+        responseData = await sendRequest('http://localhost:5000/teams');
         sessionStorage.setItem('teams', JSON.stringify(responseData));
       } catch (error) {}
     } else {
