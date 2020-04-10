@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./TeamSelection.css";
+import "./Hierarchy-TeamSelection.css";
 
 const TeamSelection = props => {
   return (

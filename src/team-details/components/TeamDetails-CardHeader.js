@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 
-import './TeamDetailsCardHeader.css';
+import './TeamDetails-CardHeader.css';
 
 const TeamDetailsCardHeader = (props) => {
   return (

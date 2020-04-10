@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import "./TeamOrgHierarchy.css";
+import "./Hierarchy-TeamOrg.css";
 
 const TeamHierarchy = props => {
   return (

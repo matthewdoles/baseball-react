@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import Navigation from "../shared/Navigation";
-import TeamOrgHierarchy from "./components/TeamOrgHierarchy";
-import TeamSelection from "./components/TeamSelection";
+import TeamOrgHierarchy from "./components/Hierarchy-TeamOrg";
+import TeamSelection from "./components/Hierarchy-TeamSelection";
 import { useHttpClient } from "../hooks/http-hook";
-import "./Hierarchy.css";
 
 const Hierarchy = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();

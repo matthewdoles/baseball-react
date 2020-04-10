@@ -1,7 +1,7 @@
 import React from "react";
 
 import TeamCard from "../../shared/TeamCard";
-import "./TeamDivision.css";
+import "./Teams-Division.css";
 
 const TeamDivision = props => {
   return (

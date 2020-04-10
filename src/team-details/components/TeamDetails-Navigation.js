@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import './TeamDetailsNavigation.css';
+import './TeamDetails-Navigation.css';
 
 const TeamDetailsNavigation = (props) => {
   const [currentIndex, setCurrentIndex] = useState();
