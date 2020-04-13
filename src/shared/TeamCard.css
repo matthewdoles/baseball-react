@@ -3,7 +3,9 @@
 }
 
 .TeamCard {
-  width: 19%;
+  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
   display: inline-flex !important;
   margin: 7px;
   border: none !important;
@@ -26,36 +28,24 @@
   color: black;
 }
 
-@media only screen and (min-width: 1824px) {
-  /* Styles */
-}
-
-@media only screen and (min-width: 1300px) and (max-width : 1700px) {
-  .TeamCard {
-    width: 20%;
-  }
-}
-
-@media only screen and (min-width: 1100px) and (max-width : 1300px) {
-  .TeamCard {
-    width: 25%;
-  }
-}
-
 @media only screen and (min-width: 875px) and (max-width : 1100px) {
   .TeamCard {
-    width: 30%;
+    width: 275px;
+    min-width: 275px;
+    max-width: 275px;
   }
 }
 
 @media only screen and (min-width: 650px) and (max-width : 875px) {
   .TeamCard {
-    width: 40%;
+    width: 275px;
+    min-width: 275px;
+    max-width: 275px;
   }
 
 }
 
-@media only screen and (min-width: 500px) and (max-width : 650px) {
+@media only screen and (min-width: 500px) and (max-width : 660px) {
   .TeamCard {
     width: 35%;
   }

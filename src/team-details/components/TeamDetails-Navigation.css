@@ -14,3 +14,7 @@
   margin-right: 16px;
   font-weight: bold;
 }
+
+.TeamDetails-NavigationItem:nth-child(odd) {
+  cursor: pointer;
+}
