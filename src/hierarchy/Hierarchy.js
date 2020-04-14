@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 import Navigation from '../shared/Navigation';
 import TeamOrgHierarchy from './components/Hierarchy-TeamOrg';
 import TeamSelection from './components/Hierarchy-TeamSelection';
+import TeamSearch from '../shared/TeamSearch';
 import { useHttpClient } from '../hooks/http-hook';
+import './Hierarchy.css';
 
 const Hierarchy = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -58,12 +60,23 @@ const Hierarchy = () => {
     }
   };
 
+  const onNameChange = async (event) => {
+    const filteredResults = allAffiliates.filter(
+      (team) =>
+        team.name.toUpperCase().search(event.target.value.toUpperCase()) > -1
+    );
+    setFilteredTeams(filteredResults);
+  };
+
   return (
     <React.Fragment>
       <Navigation hierarchyActive={true} />
       {isLoading && <div>loading...</div>}
       {!isLoading && filteredTeams && selectableTeams && (
         <React.Fragment>
+          <div className='TeamSearchContainer'>
+            <TeamSearch nameChange={onNameChange} />
+          </div>
           <TeamSelection
             teams={selectableTeams}
             teamSelected={onTeamSelected}

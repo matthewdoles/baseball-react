@@ -73,3 +73,16 @@
 .R {
   width: 70%;
 }
+
+@media only screen and (max-width : 1000px) {
+  .TeamListItem {
+    width: 100% !important;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+  .TeamListItem {
+    font-size: 18px;
+    height: 48px;
+  }
+}

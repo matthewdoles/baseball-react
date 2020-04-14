@@ -8,7 +8,7 @@ import {
   Dropdown,
   DropdownButton,
 } from 'react-bootstrap';
-import './Teams-Search.css';
+import './TeamSearch.css';
 
 const TeamSearch = (props) => {
   return (

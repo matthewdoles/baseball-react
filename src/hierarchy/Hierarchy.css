@@ -1,0 +1,20 @@
+.TeamSearchContainer {
+  display: none;
+  width: 100%;
+}
+
+@media only screen and (max-width : 1150px) {
+  .TeamSearchContainer {
+    display: inline;
+  }
+  .TeamSearchContainer button {
+    display: none;
+  }
+  .TeamSearchContainer .TeamSearch {
+    width: 80% !important;
+    padding: 10px;
+  }
+  .TeamSelect {
+    display: none;
+  }
+}

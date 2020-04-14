@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 
 import TeamCard from '../shared/TeamCard';
 import Navigation from '../shared/Navigation';
-import TeamSearch from './components/Teams-Search';
+import TeamSearch from '../shared/TeamSearch';
 import TeamDivision from './components/Teams-Division';
 import { useHttpClient } from '../hooks/http-hook';
 import './Teams.css';
