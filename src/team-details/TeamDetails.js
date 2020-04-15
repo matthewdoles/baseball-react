@@ -60,7 +60,7 @@ const TeamDetails = () => {
               allTeams={allTeams}
               selectedTeam={selectedTeam}
             />
-            <div className='TeamDetails'>
+            <div className='Row1'>
               <div className='C1'>
                 <Card className='TeamDetailCard'>
                   <Card.Img
@@ -111,6 +111,20 @@ const TeamDetails = () => {
                 </Card>
               </div>
               <div className='C3'>
+                <Card className='TeamDetailCard'>
+                  <Card.Img
+                    variant='top'
+                    className='TeamLogoImage'
+                    src={require(`../images/${selectedTeam.photo}`)}
+                    style={{
+                      backgroundColor: selectedTeam.color,
+                    }}
+                  />
+                </Card>
+              </div>
+            </div>
+            <div className='Row2'>
+              <div className='C4'>
                 <Card className='TeamDetailCard'>
                   <TeamDetailsCardHeader color={selectedTeam.photoColor}>
                     {selectedTeam.stadium}

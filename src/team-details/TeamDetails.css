@@ -1,19 +1,24 @@
 .Container {
   width: 100%;
-  margin-top: 50px;
 }
+
+.Row1, .Row2 {
+  display: flex;
+  padding: 20px;
+}
+
 .C1, .C2, .C3 {
-  width: 40%;
+  width: 20%;
   padding: 10px;
 }
 
-.C1 {
-  width: 20%;
+.C2 {
+  width: 60%;
 }
 
-.TeamDetails {
-  display: flex;
-  padding: 20px;
+.C4 {
+  width: 100%;
+  padding: 10px;
 }
 
 .TeamDetailCard {
