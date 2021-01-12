@@ -1,29 +1,29 @@
 import React from 'react';
 
-import TeamCard from '../../shared/TeamCard';
-import './Teams-Division.css';
+import TeamCard from '../../../shared/TeamCard';
+import './index.css';
 
-const TeamDivision = (props) => {
+const Division = (props) => {
   return (
     <div>
-      <div className='ConferenceBanner'>
+      <div className="leagueBanner">
         <img
-          src={require(`../../images/Leagues/${props.conference.replace(
+          src={require(`../../../images/Leagues/${props.conference.replace(
             /\s/g,
-            ''
+            '',
           )}.png`)}
-          alt=''
-          className='ConferenceImage'
+          alt=""
+          className="leagueImage"
         />
-        <p className='ConfereceTitle'>{props.conference}</p>
+        <p className="leagueTitle">{props.conference}</p>
       </div>
       {props.divisions.map((division) => (
         <div key={division.name}>
-          <p class='DivisionTitle'>
+          <p class="divisionTitle">
             <span>{division.name}</span>
-            <div class='Line'></div>
+            <div class="line"></div>
           </p>
-          <ul className='TeamList'>
+          <ul className="teamList">
             {division.teams.map((team) => (
               <TeamCard
                 key={team.id}
@@ -41,4 +41,4 @@ const TeamDivision = (props) => {
   );
 };
 
-export default TeamDivision;
+export default Division;

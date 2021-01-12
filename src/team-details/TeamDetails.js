@@ -44,10 +44,10 @@ const TeamDetails = () => {
     <React.Fragment>
       <ErrorModal
         show={errorModal}
-        title='Error'
-        buttonText='Close'
-        variant='danger'
-        link='/'
+        title="Error"
+        buttonText="Close"
+        variant="danger"
+        link="/"
         onClick={showErrorModal}
       >
         Sorry, can't seem to find that team.
@@ -55,17 +55,14 @@ const TeamDetails = () => {
       {!isLoading && selectedTeam !== null && (
         <React.Fragment>
           <Navigation />
-          <div className='Container'>
-            <TeamDetailsNavigation
-              allTeams={allTeams}
-              selectedTeam={selectedTeam}
-            />
-            <div className='Row1'>
-              <div className='C1'>
-                <Card className='TeamDetailCard'>
+          <div className="Container">
+            <TeamDetailsNavigation allTeams={allTeams} selectedTeam={selectedTeam} />
+            <div className="Row1">
+              <div className="C1">
+                <Card className="TeamDetailCard">
                   <Card.Img
-                    variant='top'
-                    className='TeamLogoImage'
+                    variant="top"
+                    className="TeamLogoImage"
                     src={require(`../images/${selectedTeam.photo}`)}
                     style={{
                       backgroundColor: selectedTeam.color,
@@ -73,14 +70,14 @@ const TeamDetails = () => {
                   />
                 </Card>
               </div>
-              <div className='C2'>
-                <Card className='TeamDetailCard'>
+              <div className="C2">
+                <Card className="TeamDetailCard">
                   <TeamDetailsCardHeader color={selectedTeam.photoColor}>
                     {selectedTeam.name}
                   </TeamDetailsCardHeader>
                   <Card.Body>
-                    <div className='DetailsBody'>
-                      <div className='DetailsLeft'>
+                    <div className="DetailsBody">
+                      <div className="DetailsLeft">
                         <p>
                           <b>Established:</b> {selectedTeam.established}
                         </p>
@@ -95,7 +92,7 @@ const TeamDetails = () => {
                           <b>Address:</b> {selectedTeam.address}
                         </p>
                       </div>
-                      <div className='DetailsRight'>
+                      <div className="DetailsRight">
                         <p>
                           <b>Organization:</b> {selectedTeam.league}
                         </p>
@@ -110,11 +107,11 @@ const TeamDetails = () => {
                   </Card.Body>
                 </Card>
               </div>
-              <div className='C3'>
-                <Card className='TeamDetailCard'>
+              <div className="C3">
+                <Card className="TeamDetailCard">
                   <Card.Img
-                    variant='top'
-                    className='TeamLogoImage'
+                    variant="top"
+                    className="TeamLogoImage"
                     src={require(`../images/${selectedTeam.photo}`)}
                     style={{
                       backgroundColor: selectedTeam.color,
@@ -123,9 +120,9 @@ const TeamDetails = () => {
                 </Card>
               </div>
             </div>
-            <div className='Row2'>
-              <div className='C4'>
-                <Card className='TeamDetailCard'>
+            <div className="Row2">
+              <div className="C4">
+                <Card className="TeamDetailCard">
                   <TeamDetailsCardHeader color={selectedTeam.photoColor}>
                     {selectedTeam.stadium}
                   </TeamDetailsCardHeader>

@@ -3,11 +3,11 @@ import React, { useEffect, useState, useCallback } from 'react';
 import TeamCard from '../shared/TeamCard';
 import Navigation from '../shared/Navigation';
 import TeamSearch from '../shared/TeamSearch';
-import TeamDivision from './components/Teams-Division';
+import Division from './components/Division';
 import { useHttpClient } from '../hooks/http-hook';
-import './Teams.css';
+import './index.css';
 
-const Teams = () => {
+const AllTeams = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [allTeams, setAllTeams] = useState();
   const [selectedLeague, setSelectedLeague] = useState('League');
@@ -37,7 +37,7 @@ const Teams = () => {
     const filteredResults = nameSearchFilter([...allTeams], event.target.value);
     if (selectedLeague !== 'League') {
       const filteredWithLeague = filteredResults.filter(
-        (team) => team.league === selectedLeague
+        (team) => team.league === selectedLeague,
       );
       return setLoadedTeams(filteredWithLeague);
     }
@@ -68,7 +68,7 @@ const Teams = () => {
     setSelectedLeague(keyValue);
     applyFilters(
       [...allTeams].filter((team) => team.league === keyValue),
-      keyValue
+      keyValue,
     );
   };
 
@@ -82,7 +82,7 @@ const Teams = () => {
 
   const nameSearchFilter = (teams, value) => {
     return teams.filter(
-      (team) => team.name.toUpperCase().search(value.toUpperCase()) > -1
+      (team) => team.name.toUpperCase().search(value.toUpperCase()) > -1,
     );
   };
 
@@ -95,9 +95,7 @@ const Teams = () => {
   };
 
   const sortLeagueIntoDivisions = (league) => {
-    const selectedLeagueTeams = allTeams.filter(
-      (team) => team.league === league
-    );
+    const selectedLeagueTeams = allTeams.filter((team) => team.league === league);
     const selectedLeagueConferences = [
       ...new Set(selectedLeagueTeams.map((team) => team.conference)),
     ].sort();
@@ -111,7 +109,7 @@ const Teams = () => {
       const divisions = [];
       selectedLeagueDivisions.forEach((division) => {
         const divisionTeams = selectedLeagueTeams.filter(
-          (team) => team.conference === conference && team.division === division
+          (team) => team.conference === conference && team.division === division,
         );
         if (divisionTeams.length > 0) {
           divisions.push({ name: division, teams: divisionTeams });
@@ -181,11 +179,9 @@ const Teams = () => {
   };
 
   const showHiddenLeagueItems = (hideFirst = false) => {
-    document
-      .getElementById('LeagueDropdown')
-      .classList.add('SearchButtonActive');
+    document.getElementById('LeagueDropdown').classList.add('SearchButtonActive');
     const dropdownItems = Array.from(
-      document.getElementsByClassName('LeagueDropdownItem')
+      document.getElementsByClassName('LeagueDropdownItem'),
     );
     dropdownItems.forEach((el) => el.classList.remove('HideLeague'));
     if (hideFirst) {
@@ -197,11 +193,11 @@ const Teams = () => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Navigation allTeamsActive={true} />
       {isLoading && <div>loading...</div>}
       {!isLoading && loadedTeams && (
-        <React.Fragment>
+        <>
           <TeamSearch
             nameChange={onNameChange}
             filterAlphabetical={onFilterAlphabetical}
@@ -211,7 +207,7 @@ const Teams = () => {
             league={selectedLeague}
           />
           {selectedFilter !== 'Division' && (
-            <ul className='TeamList'>
+            <ul className="teamList">
               {loadedTeams.map((team) => (
                 <TeamCard
                   key={team.id}
@@ -227,17 +223,17 @@ const Teams = () => {
           {selectedFilter === 'Division' &&
             divisionDetails.map((conference) => {
               return (
-                <TeamDivision
+                <Division
                   conference={conference.name}
                   divisions={conference.divisions}
                   key={conference.name}
                 />
               );
             })}
-        </React.Fragment>
+        </>
       )}
-    </React.Fragment>
+    </>
   );
 };
 
-export default Teams;
+export default AllTeams;
