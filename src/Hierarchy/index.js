@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import Navigation from '../shared/Navigation';
-import TeamOrgHierarchy from './components/Hierarchy-TeamOrg';
-import TeamSelection from './components/Hierarchy-TeamSelection';
+import TeamHierarchy from './components/TeamHierarchy';
+import TeamSelection from './components/TeamSelection';
 import TeamSearch from '../shared/TeamSearch';
 import { useHttpClient } from '../hooks/http-hook';
-import './Hierarchy.css';
+import './index.css';
 
 const Hierarchy = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -19,9 +19,7 @@ const Hierarchy = () => {
       let responseData;
       if (sessionStorage.getItem('affiliates') === null) {
         try {
-          responseData = await sendRequest(
-            'http://localhost:5000/teams/affiliates'
-          );
+          responseData = await sendRequest('http://localhost:5000/teams/affiliates');
           sessionStorage.setItem('affiliates', JSON.stringify(responseData));
         } catch (error) {}
       } else {
@@ -29,9 +27,7 @@ const Hierarchy = () => {
       }
       setAllAffiliates(responseData.teams);
       setFilteredTeams(responseData.teams);
-      const mlbTeams = responseData.teams.filter(
-        (team) => team.league === 'MLB'
-      );
+      const mlbTeams = responseData.teams.filter((team) => team.league === 'MLB');
       setSelectableTeams(mlbTeams);
     };
     fetchTeams();
@@ -45,16 +41,16 @@ const Hierarchy = () => {
     ) {
       const teams = [...allAffiliates];
       if (document.getElementById(selectedTeam) !== null) {
-        teamLogo.classList.remove('SelectedTeam');
+        teamLogo.classList.remove('selectedTeam');
       }
-      event.target.classList.add('SelectedTeam');
+      event.target.classList.add('selectedTeam');
       setFilteredTeams(
-        teams.filter((team) => team.name === event.target.getAttribute('value'))
+        teams.filter((team) => team.name === event.target.getAttribute('value')),
       );
       setSelectedTeam(event.target.getAttribute('value'));
     } else {
-      teamLogo.classList.remove('SelectedTeam');
-      document.getElementById('MLB').classList.add('SelectedTeam');
+      teamLogo.classList.remove('selectedTeam');
+      document.getElementById('MLB').classList.add('selectedTeam');
       setFilteredTeams(allAffiliates);
       setSelectedTeam('MLB');
     }
@@ -63,27 +59,24 @@ const Hierarchy = () => {
   const onNameChange = async (event) => {
     const filteredResults = allAffiliates.filter(
       (team) =>
-        team.name.toUpperCase().search(event.target.value.toUpperCase()) > -1
+        team.name.toUpperCase().search(event.target.value.toUpperCase()) > -1,
     );
     setFilteredTeams(filteredResults);
   };
 
   return (
-    <React.Fragment>
+    <>
       <Navigation hierarchyActive={true} />
-      {isLoading && <div>loading...</div>}
+      {isLoading && <div className="loadingContainer">loading...</div>}
       {!isLoading && filteredTeams && selectableTeams && (
-        <React.Fragment>
-          <div className='TeamSearchContainer'>
+        <>
+          <div className="teamSearchContainer">
             <TeamSearch nameChange={onNameChange} />
           </div>
-          <TeamSelection
-            teams={selectableTeams}
-            teamSelected={onTeamSelected}
-          />
-          <ul className='TeamList'>
+          <TeamSelection teams={selectableTeams} teamSelected={onTeamSelected} />
+          <ul className="teamList">
             {filteredTeams.map((team) => (
-              <TeamOrgHierarchy
+              <TeamHierarchy
                 key={team.id}
                 name={team.name}
                 photo={team.photo}
@@ -93,9 +86,9 @@ const Hierarchy = () => {
               />
             ))}
           </ul>
-        </React.Fragment>
+        </>
       )}
-    </React.Fragment>
+    </>
   );
 };
 

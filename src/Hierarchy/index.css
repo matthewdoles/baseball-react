@@ -1,0 +1,24 @@
+.loadingContainer {
+  padding: 20px;
+}
+
+.teamSearchContainer {
+  display: none;
+  width: 100%;
+}
+
+@media only screen and (max-width: 1150px) {
+  .teamSearchContainer {
+    display: inline;
+  }
+  .teamSearchContainer button {
+    display: none;
+  }
+  .teamSearchContainer .TeamSearch {
+    width: 80% !important;
+    padding: 10px;
+  }
+  .teamSelect {
+    display: none;
+  }
+}
