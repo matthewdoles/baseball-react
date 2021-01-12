@@ -1,4 +1,4 @@
-.SearchControls {
+.searchControls {
   display: flex;
   margin: auto;
   justify-content: center;
@@ -14,31 +14,31 @@
   border-bottom: 1px solid #007bff;
 }
 
-.TeamSearch {
+.teamSearch {
   width: 40% !important;
   padding: 10px;
 }
 
-.SearchButtons button {
+.searchButtons button {
   background-color: #e9ecef;
   border: 1px solid #ced4da;
   color: black;
 }
 
-.SearchButtons button:active,
-.SearchButtons button:focus,
-.SearchButtons button:hover {
+.searchButtons button:active,
+.searchButtons button:focus,
+.searchButtons button:hover {
   background-color: #e9ecef;
   border: 1px solid #ced4da;
   color: black;
   box-shadow: none;
 }
 
-.SearchButtonActive {
+.searchButtonActive {
   background-color: #007bff !important;
   color: white !important;
 }
 
-.HideLeague { 
+.hideLeague {
   display: none !important;
 }

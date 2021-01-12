@@ -8,62 +8,62 @@ import {
   Dropdown,
   DropdownButton,
 } from 'react-bootstrap';
-import './TeamSearch.css';
+import './index.css';
 
 const TeamSearch = (props) => {
   return (
-    <div className='SearchControls'>
-      <InputGroup className='TeamSearch'>
+    <div className="searchControls">
+      <InputGroup className="teamSearch">
         <InputGroup.Prepend>
           <InputGroup.Text>Team</InputGroup.Text>
         </InputGroup.Prepend>
-        <FormControl onChange={props.nameChange} id='TeamNameInput' />
+        <FormControl onChange={props.nameChange} id="TeamNameInput" />
       </InputGroup>
-      <ButtonGroup className='SearchButtons'>
+      <ButtonGroup className="searchButtons">
         <Button
           onClick={props.filterAlphabetical}
-          className='SearchButtonActive'
-          id='AlphabeticalButton'
+          className="searchButtonActive"
+          id="AlphabeticalButton"
         >
           Alphabetical
         </Button>
-        <Button onClick={props.filterEstablished} id='EstablishedButton'>
+        <Button onClick={props.filterEstablished} id="EstablishedButton">
           Established
         </Button>
         <DropdownButton
           as={ButtonGroup}
           title={props.league}
-          id='LeagueDropdown'
+          id="LeagueDropdown"
           onSelect={props.filterLeague}
         >
-          <div className='LeagueDropdownItem HideLeague'>
-            <Dropdown.Item eventKey='All'>All</Dropdown.Item>
+          <div className="leagueDropdownItem hideLeague">
+            <Dropdown.Item eventKey="All">All</Dropdown.Item>
             <Dropdown.Divider />
           </div>
-          <Dropdown.Item eventKey='MLB' className='LeagueDropdownItem'>
+          <Dropdown.Item eventKey="MLB" className="leagueDropdownItem">
             MLB
           </Dropdown.Item>
-          <Dropdown.Item eventKey='AAA' className='LeagueDropdownItem'>
+          <Dropdown.Item eventKey="AAA" className="leagueDropdownItem">
             AAA
           </Dropdown.Item>
-          <Dropdown.Item eventKey='AA' className='LeagueDropdownItem'>
+          <Dropdown.Item eventKey="AA" className="leagueDropdownItem">
             AA
           </Dropdown.Item>
-          <Dropdown.Item eventKey='A+' className='LeagueDropdownItem'>
+          <Dropdown.Item eventKey="A+" className="leagueDropdownItem">
             A+
           </Dropdown.Item>
-          <Dropdown.Item eventKey='A' className='LeagueDropdownItem'>
+          <Dropdown.Item eventKey="A" className="leagueDropdownItem">
             A
           </Dropdown.Item>
-          <Dropdown.Item eventKey='SS' className='LeagueDropdownItem'>
+          <Dropdown.Item eventKey="SS" className="leagueDropdownItem">
             SS
           </Dropdown.Item>
-          <Dropdown.Item eventKey='R' className='LeagueDropdownItem'>
+          <Dropdown.Item eventKey="R" className="leagueDropdownItem">
             R
           </Dropdown.Item>
         </DropdownButton>
         {props.league !== 'League' && (
-          <Button onClick={props.filterDivision} id='DivisionButton'>
+          <Button onClick={props.filterDivision} id="divisionButton">
             Division
           </Button>
         )}

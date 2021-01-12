@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 
-import './Map.css';
+import './index.css';
 
 const Map = (props) => {
   const mapRef = useRef();
@@ -25,15 +25,10 @@ const Map = (props) => {
     googleScript.addEventListener('load', () => {
       loadMap();
     });
-    
   }, [lat, lng, zoom]);
 
   return (
-    <div
-      ref={mapRef}
-      className={`Map ${props.className}`}
-      style={props.style}
-    ></div>
+    <div ref={mapRef} className={`Map ${props.className}`} style={props.style}></div>
   );
 };
 

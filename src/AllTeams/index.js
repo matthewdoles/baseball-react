@@ -152,34 +152,34 @@ const AllTeams = () => {
   const applyFilterStyles = (alphabetical, established, division) => {
     const alphabeticalButton = document.getElementById('AlphabeticalButton');
     if (alphabetical) {
-      alphabeticalButton.classList.add('SearchButtonActive');
+      alphabeticalButton.classList.add('searchButtonActive');
     } else {
-      alphabeticalButton.classList.remove('SearchButtonActive');
+      alphabeticalButton.classList.remove('searchButtonActive');
     }
 
     const establishedButton = document.getElementById('EstablishedButton');
     if (established) {
-      establishedButton.classList.add('SearchButtonActive');
+      establishedButton.classList.add('searchButtonActive');
     } else {
-      establishedButton.classList.remove('SearchButtonActive');
+      establishedButton.classList.remove('searchButtonActive');
     }
 
     const divisionButton = document.getElementById('DivisionButton');
     const teamInput = document.getElementById('TeamNameInput');
     if (divisionButton !== null) {
       if (division) {
-        divisionButton.classList.add('SearchButtonActive');
+        divisionButton.classList.add('searchButtonActive');
         teamInput.value = '';
         teamInput.disabled = true;
       } else {
-        divisionButton.classList.remove('SearchButtonActive');
+        divisionButton.classList.remove('searchButtonActive');
         teamInput.disabled = false;
       }
     }
   };
 
   const showHiddenLeagueItems = (hideFirst = false) => {
-    document.getElementById('LeagueDropdown').classList.add('SearchButtonActive');
+    document.getElementById('LeagueDropdown').classList.add('searchButtonActive');
     const dropdownItems = Array.from(
       document.getElementsByClassName('LeagueDropdownItem'),
     );
@@ -187,7 +187,7 @@ const AllTeams = () => {
     if (hideFirst) {
       document
         .getElementById('LeagueDropdown')
-        .classList.remove('SearchButtonActive');
+        .classList.remove('searchButtonActive');
       dropdownItems[0].classList.add('HideLeague');
     }
   };
@@ -195,7 +195,7 @@ const AllTeams = () => {
   return (
     <>
       <Navigation allTeamsActive={true} />
-      {isLoading && <div>loading...</div>}
+      {isLoading && <div className="loadingContainer">loading...</div>}
       {!isLoading && loadedTeams && (
         <>
           <TeamSearch

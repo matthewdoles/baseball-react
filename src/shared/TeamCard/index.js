@@ -2,18 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Card } from 'react-bootstrap';
-import './TeamCard.css';
+import './index.css';
 
 const TeamCard = (props) => {
   return (
-    <Link to={`/team/${props.url}`} className='TeamLink'>
-      <Card className='TeamCard'>
+    <Link to={`/team/${props.url}`} className="teamLink">
+      <Card className="teamCard">
         <Card.Img
-          variant='top'
-          className='TeamCardImage'
-          src={require(`../images/${props.photo}`)}
+          variant="top"
+          className="teamCardImage"
+          src={require(`../../images/${props.photo}`)}
         />
-        <Card.Body className='TeamCardBody'>
+        <Card.Body className="teamCardBody">
           <Card.Title>{props.name}</Card.Title>
           <Card.Text>Est. {props.est}</Card.Text>
         </Card.Body>

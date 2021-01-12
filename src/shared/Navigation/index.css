@@ -1,9 +1,9 @@
-.Navigation {
+.navigation {
   height: 50px;
   position: sticky !important;
 }
 
-.ActiveLink {
+.activeLink {
   color: #007bff !important;
   font-weight: bold;
 }
