@@ -1,4 +1,4 @@
-.TeamDetails-Navigation {
+.navigation {
   height: 50px;
   display: flex;
   margin: auto;
@@ -7,7 +7,7 @@
   padding: 1rem;
 }
 
-.TeamDetails-NavigationItem {
+.navigationItem {
   color: white;
   margin: 0;
   font-size: 16px;
@@ -15,6 +15,6 @@
   font-weight: bold;
 }
 
-.TeamDetails-NavigationItem:nth-child(odd) {
+.navigationItem:nth-child(odd) {
   cursor: pointer;
 }

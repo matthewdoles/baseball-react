@@ -1,12 +1,12 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 
-import './TeamDetails-CardHeader.css';
+import './index.css';
 
-const TeamDetailsCardHeader = (props) => {
+const TeamDetailsCard = (props) => {
   return (
     <Card.Header
-      className='TeamDetails-CardHeader'
+      className="header"
       style={{
         backgroundColor: props.color,
       }}
@@ -16,4 +16,4 @@ const TeamDetailsCardHeader = (props) => {
   );
 };
 
-export default TeamDetailsCardHeader;
+export default TeamDetailsCard;

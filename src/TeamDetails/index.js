@@ -4,11 +4,11 @@ import { useParams } from 'react-router-dom';
 import Map from '../shared/Map';
 import ErrorModal from '../shared/ErrorModal';
 import Navigation from '../shared/Navigation';
-import TeamDetailsNavigation from './components/TeamDetails-Navigation';
-import TeamDetailsCardHeader from './components/TeamDetails-CardHeader';
+import TeamDetailsHeader from './components/TeamDetailsHeader';
+import TeamDetailsCard from './components/TeamDetailsCard';
 import { Card } from 'react-bootstrap';
 import { useHttpClient } from '../hooks/http-hook';
-import './TeamDetails.css';
+import './index.css';
 
 const TeamDetails = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -56,7 +56,7 @@ const TeamDetails = () => {
         <React.Fragment>
           <Navigation />
           <div className="Container">
-            <TeamDetailsNavigation allTeams={allTeams} selectedTeam={selectedTeam} />
+            <TeamDetailsHeader allTeams={allTeams} selectedTeam={selectedTeam} />
             <div className="Row1">
               <div className="C1">
                 <Card className="TeamDetailCard">
@@ -72,9 +72,9 @@ const TeamDetails = () => {
               </div>
               <div className="C2">
                 <Card className="TeamDetailCard">
-                  <TeamDetailsCardHeader color={selectedTeam.photoColor}>
+                  <TeamDetailsCard color={selectedTeam.photoColor}>
                     {selectedTeam.name}
-                  </TeamDetailsCardHeader>
+                  </TeamDetailsCard>
                   <Card.Body>
                     <div className="DetailsBody">
                       <div className="DetailsLeft">
@@ -123,9 +123,9 @@ const TeamDetails = () => {
             <div className="Row2">
               <div className="C4">
                 <Card className="TeamDetailCard">
-                  <TeamDetailsCardHeader color={selectedTeam.photoColor}>
+                  <TeamDetailsCard color={selectedTeam.photoColor}>
                     {selectedTeam.stadium}
-                  </TeamDetailsCardHeader>
+                  </TeamDetailsCard>
                   <Card.Body>
                     <Map
                       lat={selectedTeam.location.latitude}

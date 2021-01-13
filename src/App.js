@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
 import AllTeams from './AllTeams';
-import TeamDetails from './team-details/TeamDetails';
+import TeamDetails from './TeamDetails';
 import Hierarchy from './Hierarchy';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';

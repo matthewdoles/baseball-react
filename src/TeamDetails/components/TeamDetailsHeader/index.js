@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import './TeamDetails-Navigation.css';
+import './index.css';
 
-const TeamDetailsNavigation = (props) => {
+const TeamDetailsHeader = (props) => {
   const [currentIndex, setCurrentIndex] = useState();
   const [disablePrev, setDisablePrev] = useState();
   const [disableNext, setDisableNext] = useState();
@@ -14,7 +14,7 @@ const TeamDetailsNavigation = (props) => {
     setDisableNext(false);
 
     const currentIndex = props.allTeams.findIndex(
-      (team) => team.id === props.selectedTeam.id
+      (team) => team.id === props.selectedTeam.id,
     );
 
     if (currentIndex === props.allTeams.length - 1) {
@@ -45,26 +45,26 @@ const TeamDetailsNavigation = (props) => {
 
   return (
     <div
-      className='TeamDetails-Navigation'
+      className="navigation"
       style={{
         backgroundColor: props.selectedTeam.photoColor,
       }}
     >
       {disablePrev === false ? (
         <React.Fragment>
-          <p className='TeamDetails-NavigationItem' onClick={findPrevTeam}>
+          <p className="navigationItem" onClick={findPrevTeam}>
             PREVIOUS
           </p>
-          <p className='TeamDetails-NavigationItem'>|</p>
+          <p className="navigationItem">|</p>
         </React.Fragment>
       ) : null}
-      <p className='TeamDetails-NavigationItem' onClick={findRandomTeam}>
+      <p className="navigationItem" onClick={findRandomTeam}>
         RANDOM
       </p>
       {disableNext === false ? (
         <React.Fragment>
-          <p className='TeamDetails-NavigationItem'>|</p>
-          <p className='TeamDetails-NavigationItem' onClick={findNextTeam}>
+          <p className="navigationItem">|</p>
+          <p className="navigationItem" onClick={findNextTeam}>
             NEXT
           </p>
         </React.Fragment>
@@ -73,4 +73,4 @@ const TeamDetailsNavigation = (props) => {
   );
 };
 
-export default TeamDetailsNavigation;
+export default TeamDetailsHeader;
