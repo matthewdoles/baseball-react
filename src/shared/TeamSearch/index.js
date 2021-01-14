@@ -63,7 +63,7 @@ const TeamSearch = (props) => {
           </Dropdown.Item>
         </DropdownButton>
         {props.league !== 'League' && (
-          <Button onClick={props.filterDivision} id="divisionButton">
+          <Button onClick={props.filterDivision} id="DivisionButton">
             Division
           </Button>
         )}

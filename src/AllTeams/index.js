@@ -9,8 +9,8 @@ import './index.css';
 
 const url =
   process.env.NODE_ENV === 'development'
-    ? 'http://localhost:5000/teams/affiliates'
-    : 'https://baseball-affiliates.herokuapp.com/teams';
+    ? 'http://localhost:5000/teams/'
+    : 'https://baseball-affiliates.herokuapp.com/teams/';
 
 const AllTeams = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();

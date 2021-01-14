@@ -107,22 +107,10 @@ const TeamDetails = () => {
                   </Card.Body>
                 </Card>
               </div>
-              <div className="C3">
-                <Card className="TeamDetailCard">
-                  <Card.Img
-                    variant="top"
-                    className="TeamLogoImage"
-                    src={require(`../images/${selectedTeam.photo}`)}
-                    style={{
-                      backgroundColor: selectedTeam.color,
-                    }}
-                  />
-                </Card>
-              </div>
             </div>
             <div className="Row2">
               <div className="C4">
-                <Card className="TeamDetailCard">
+                <Card className="TeamDetailCard TeamDetailStadiun">
                   <TeamDetailsCard color={selectedTeam.photoColor}>
                     {selectedTeam.stadium}
                   </TeamDetailsCard>

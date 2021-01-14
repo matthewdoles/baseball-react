@@ -2,18 +2,21 @@
   width: 100%;
 }
 
-.Row1, .Row2 {
+.Row1,
+.Row2 {
   display: flex;
-  padding: 20px;
+  padding: 20px 20px 0px 20px;
 }
 
-.C1, .C2, .C3 {
+.C1,
+.C2,
+.C3 {
   width: 20%;
   padding: 10px;
 }
 
 .C2 {
-  width: 60%;
+  width: 80%;
 }
 
 .C4 {
@@ -27,6 +30,10 @@
   margin: auto;
   border-radius: 25px !important;
   font-size: 18px;
+}
+
+.TeamDetailStadiun {
+  height: 500px;
 }
 
 .TeamLogoImage {
