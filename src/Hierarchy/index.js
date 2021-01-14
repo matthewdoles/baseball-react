@@ -7,6 +7,11 @@ import TeamSearch from '../shared/TeamSearch';
 import { useHttpClient } from '../hooks/http-hook';
 import './index.css';
 
+const url =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000/teams/affiliates'
+    : 'https://baseball-affiliates.herokuapp.com/teams/affiliates';
+
 const Hierarchy = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [allAffiliates, setAllAffiliates] = useState(null);
@@ -19,7 +24,7 @@ const Hierarchy = () => {
       let responseData;
       if (sessionStorage.getItem('affiliates') === null) {
         try {
-          responseData = await sendRequest('http://localhost:5000/teams/affiliates');
+          responseData = await sendRequest(url);
           sessionStorage.setItem('affiliates', JSON.stringify(responseData));
         } catch (error) {}
       } else {

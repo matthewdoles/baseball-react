@@ -7,6 +7,11 @@ import Division from './components/Division';
 import { useHttpClient } from '../hooks/http-hook';
 import './index.css';
 
+const url =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000/teams/affiliates'
+    : 'https://baseball-affiliates.herokuapp.com/teams';
+
 const AllTeams = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [allTeams, setAllTeams] = useState();
@@ -19,7 +24,7 @@ const AllTeams = () => {
     let responseData;
     if (sessionStorage.getItem('teams') === null) {
       try {
-        responseData = await sendRequest('http://localhost:5000/teams');
+        responseData = await sendRequest(url);
         sessionStorage.setItem('teams', JSON.stringify(responseData));
       } catch (error) {}
     } else {
