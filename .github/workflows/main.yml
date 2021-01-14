@@ -11,7 +11,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2.3.2
       - name: Install Dependencies
-        run: npm install
+        run: npm install -g
       - name: Build
         run: npm run build --verbose
       - name: Archive Production Artifact
