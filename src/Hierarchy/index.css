@@ -7,7 +7,7 @@
   width: 100%;
 }
 
-@media only screen and (max-width: 1150px) {
+@media (max-width: 1150px) {
   .teamSearchContainer {
     display: inline;
   }

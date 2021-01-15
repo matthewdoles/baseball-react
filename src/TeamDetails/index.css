@@ -9,8 +9,7 @@
 }
 
 .C1,
-.C2,
-.C3 {
+.C2 {
   width: 20%;
   padding: 10px;
 }
@@ -50,4 +49,62 @@
   padding: 0 20px;
   width: 50%;
   text-align: left;
+}
+
+@media (min-width: 1200px) and (max-width: 1450px) {
+  .C1,
+  .C2 {
+    width: 25%;
+    padding: 10px;
+  }
+
+  .C2 {
+    width: 75%;
+  }
+}
+
+@media (min-width: 875px) and (max-width: 1200px) {
+  .C1,
+  .C2 {
+    width: 30%;
+    padding: 10px;
+  }
+
+  .C2 {
+    width: 70%;
+  }
+}
+
+@media (max-width: 875px) {
+  .Container {
+    width: 100%;
+  }
+  .Row1,
+  .Row2 {
+    display: block;
+    padding: 5px;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .C1,
+  .C2,
+  .C4 {
+    width: 95%;
+    padding: 10px;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .C1 {
+    width: 50%;
+  }
+  .TeamDetailCard {
+    height: auto;
+  }
+  .TeamDetailStadiun {
+    height: 500px;
+  }
 }

@@ -28,7 +28,7 @@
   color: black;
 }
 
-@media only screen and (min-width: 875px) and (max-width: 1100px) {
+@media (min-width: 875px) and (max-width: 1100px) {
   .teamCard {
     width: 275px;
     min-width: 275px;
@@ -36,7 +36,7 @@
   }
 }
 
-@media only screen and (min-width: 650px) and (max-width: 875px) {
+@media (min-width: 650px) and (max-width: 875px) {
   .teamCard {
     width: 275px;
     min-width: 275px;
@@ -44,7 +44,7 @@
   }
 }
 
-@media only screen and (min-width: 500px) and (max-width: 660px) {
+@media (min-width: 500px) and (max-width: 660px) {
   .teamCard {
     width: 35%;
   }
