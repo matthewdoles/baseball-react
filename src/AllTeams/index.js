@@ -69,7 +69,7 @@ const AllTeams = () => {
     }
 
     showHiddenLeagueItems();
-    event.target.classList.add('HideLeague');
+    event.target.classList.add('hideLeague');
     setSelectedLeague(keyValue);
     applyFilters(
       [...allTeams].filter((team) => team.league === keyValue),
@@ -186,14 +186,14 @@ const AllTeams = () => {
   const showHiddenLeagueItems = (hideFirst = false) => {
     document.getElementById('LeagueDropdown').classList.add('searchButtonActive');
     const dropdownItems = Array.from(
-      document.getElementsByClassName('LeagueDropdownItem'),
+      document.getElementsByClassName('leagueDropdownItem'),
     );
-    dropdownItems.forEach((el) => el.classList.remove('HideLeague'));
+    dropdownItems.forEach((el) => el.classList.remove('hideLeague'));
     if (hideFirst) {
       document
         .getElementById('LeagueDropdown')
         .classList.remove('searchButtonActive');
-      dropdownItems[0].classList.add('HideLeague');
+      dropdownItems[0].classList.add('hideLeague');
     }
   };
 

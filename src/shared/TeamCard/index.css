@@ -44,9 +44,9 @@
   }
 }
 
-@media (min-width: 500px) and (max-width: 660px) {
+@media (max-width: 660px) {
   .teamCard {
-    width: 35%;
+    width: 40%;
   }
   .teamCardImage {
     height: 160px;
