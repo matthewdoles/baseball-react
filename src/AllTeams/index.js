@@ -2,16 +2,16 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 import Division from './components/Division';
-import Navigation from '../shared/Navigation';
-import TeamCard from '../shared/TeamCard';
-import TeamSearch from '../shared/TeamSearch';
-import { useHttpClient } from '../hooks/http-hook';
+import Navigation from 'shared/Navigation';
+import TeamCard from 'shared/TeamCard';
+import TeamSearch from 'shared/TeamSearch';
+import { useHttpClient } from 'hooks/http-hook';
 import {
   alphabeticalFilter,
   establishedFilter,
   nameSearchFilter,
   sortLeagueIntoDivisions,
-} from '../functions/filtering';
+} from 'functions/filtering';
 import './index.css';
 
 const AllTeams = () => {

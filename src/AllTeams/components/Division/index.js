@@ -1,21 +1,18 @@
 import React from 'react';
 
-import TeamCard from '../../../shared/TeamCard';
+import TeamCard from 'shared/TeamCard';
 import './index.css';
 
 const Division = (props) => {
   return (
     <div>
-      <div className="leagueBanner">
+      <div className="m-auto leagueBanner">
         <img
-          src={require(`../../../images/Leagues/${props.conference.replace(
-            /\s/g,
-            '',
-          )}.png`)}
           alt=""
-          className="leagueImage"
+          className="mr-4 leagueImage"
+          src={require(`images/Leagues/${props.conference.replace(/\s/g, '')}.png`)}
         />
-        <p className="leagueTitle">{props.conference}</p>
+        <p className="m-0 leagueTitle">{props.conference}</p>
       </div>
       {props.divisions.map((division) => (
         <div key={division.name}>
@@ -27,11 +24,11 @@ const Division = (props) => {
             {division.teams.map((team) => (
               <TeamCard
                 key={team.id}
-                name={team.name}
-                url={team.url}
-                est={team.established}
-                photo={team.photo}
                 color={team.photoColor}
+                est={team.established}
+                name={team.name}
+                photo={team.photo}
+                url={team.url}
               />
             ))}
           </ul>

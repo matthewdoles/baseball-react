@@ -47,15 +47,31 @@
 @media (max-width: 660px) {
   .teamCard {
     width: 40%;
+    min-width: 40%;
+    max-width: 40%;
   }
   .teamCardImage {
     height: 160px;
+    border-bottom-left-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
   }
   .teamCardBody {
     display: none;
   }
+}
+
+@media (max-width: 400px) {
+  .teamCard {
+    width: 90%;
+    min-width: 90%;
+    max-width: 90%;
+  }
   .teamCardImage {
+    height: 200px;
     border-bottom-left-radius: 25px !important;
     border-bottom-right-radius: 25px !important;
+  }
+  .teamCardBody {
+    display: block;
   }
 }
