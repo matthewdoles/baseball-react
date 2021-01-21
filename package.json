@@ -33,5 +33,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.12.10",
+    "babel-plugin-module-resolver": "^4.1.0"
   }
 }
