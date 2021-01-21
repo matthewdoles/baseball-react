@@ -1,23 +1,32 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Navbar, Nav } from 'react-bootstrap';
 import './index.css';
 
-const Navigation = (props) => {
+const Navigation = ({ allTeamsActive, hierarchyActive }) => {
+  const pages = [
+    {
+      name: 'All Teams',
+      active: allTeamsActive,
+      link: '/',
+    },
+    {
+      name: 'Hierarchy',
+      active: hierarchyActive,
+      link: '/hierarchy',
+    },
+  ];
+
   return (
     <Navbar bg="light" fixed="top" className="navigation">
-      <Navbar.Brand onClick={props.allView}>Baseball Affiliates</Navbar.Brand>
+      <Navbar.Brand href="/">Baseball Affiliates</Navbar.Brand>
       <Navbar.Collapse>
         <Nav>
-          <Nav.Link className={props.allTeamsActive ? 'activeLink' : null} href="/">
-            All Teams
-          </Nav.Link>
-          <Nav.Link
-            className={props.hierarchyActive ? 'activeLink' : null}
-            href="/hierarchy"
-          >
-            Hierarchy
-          </Nav.Link>
+          {pages.map((page) => (
+            <Nav.Link className={page.active ? 'activeLink' : null} href={page.link}>
+              {page.name}
+            </Nav.Link>
+          ))}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
