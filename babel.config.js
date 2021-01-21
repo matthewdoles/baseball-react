@@ -6,6 +6,8 @@ module.exports = {
       {
         root: ['./'],
         alias: {
+          functions: './src/functions',
+          hooks: './src/hooks',
           images: './src/images',
           shared: './src/shared',
         },
