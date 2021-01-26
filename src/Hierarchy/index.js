@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Spinner } from 'react-bootstrap';
 
 import Navigation from '../shared/Navigation';
 import TeamHierarchy from './components/TeamHierarchy';
@@ -7,34 +8,33 @@ import TeamSearch from '../shared/TeamSearch';
 import { useHttpClient } from '../hooks/http-hook';
 import './index.css';
 
-const url =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:5000/teams/affiliates'
-    : 'https://baseball-affiliates.herokuapp.com/teams/affiliates';
-
 const Hierarchy = () => {
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { isLoading, sendRequest } = useHttpClient();
   const [allAffiliates, setAllAffiliates] = useState(null);
   const [selectableTeams, setSelectableTeams] = useState(null);
   const [selectedTeam, setSelectedTeam] = useState('MLB');
   const [filteredTeams, setFilteredTeams] = useState();
 
+  const fetchTeams = useCallback(async () => {
+    let responseData;
+    if (sessionStorage.getItem('affiliates') === null) {
+      try {
+        responseData = await sendRequest(
+          process.env.NODE_ENV === 'development'
+            ? 'http://localhost:5000/teams/affiliates'
+            : 'https://baseball-affiliates.herokuapp.com/teams/affiliates',
+        );
+        sessionStorage.setItem('affiliates', JSON.stringify(responseData));
+      } catch (error) {}
+    } else {
+      responseData = JSON.parse(sessionStorage.getItem('affiliates'));
+    }
+    setAllAffiliates(responseData.teams);
+    setFilteredTeams(responseData.teams);
+    setSelectableTeams(responseData.teams.filter((team) => team.league === 'MLB'));
+  }, [sendRequest]);
+
   useEffect(() => {
-    const fetchTeams = async () => {
-      let responseData;
-      if (sessionStorage.getItem('affiliates') === null) {
-        try {
-          responseData = await sendRequest(url);
-          sessionStorage.setItem('affiliates', JSON.stringify(responseData));
-        } catch (error) {}
-      } else {
-        responseData = JSON.parse(sessionStorage.getItem('affiliates'));
-      }
-      setAllAffiliates(responseData.teams);
-      setFilteredTeams(responseData.teams);
-      const mlbTeams = responseData.teams.filter((team) => team.league === 'MLB');
-      setSelectableTeams(mlbTeams);
-    };
     fetchTeams();
   }, [sendRequest]);
 
@@ -72,14 +72,18 @@ const Hierarchy = () => {
   return (
     <>
       <Navigation hierarchyActive={true} />
-      {isLoading && <div className="loadingContainer">loading...</div>}
+      {isLoading && (
+        <div class="pt-5">
+          <Spinner animation="border" />
+        </div>
+      )}
       {!isLoading && filteredTeams && selectableTeams && (
         <>
           <div className="teamSearchContainer">
             <TeamSearch nameChange={onNameChange} />
           </div>
           <TeamSelection teams={selectableTeams} teamSelected={onTeamSelected} />
-          <ul className="teamList">
+          <ul className="m-auto p-0 hierarchyList">
             {filteredTeams.map((team) => (
               <TeamHierarchy
                 key={team.id}

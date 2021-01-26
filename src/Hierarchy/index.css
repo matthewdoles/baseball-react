@@ -1,23 +1,25 @@
-.loadingContainer {
-  padding: 20px;
-}
-
 .teamSearchContainer {
   display: none;
   width: 100%;
+}
+
+.hierarchyList {
+  width: 90%;
 }
 
 @media (max-width: 1150px) {
   .teamSearchContainer {
     display: inline;
   }
+
   .teamSearchContainer button {
     display: none;
   }
-  .teamSearchContainer .TeamSearch {
+
+  .teamSearchContainer .teamSearch {
     width: 80% !important;
-    padding: 10px;
   }
+
   .teamSelect {
     display: none;
   }
