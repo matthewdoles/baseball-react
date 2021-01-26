@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 import ErrorModal from 'shared/ErrorModal';
-import Navigation from '../shared/Navigation';
+import Navigation from 'shared/Navigation';
 import TeamHierarchy from './components/TeamHierarchy';
 import TeamSelection from './components/TeamSelection';
-import TeamSearch from '../shared/TeamSearch';
-import { useHttpClient } from '../hooks/http-hook';
+import TeamSearch from 'shared/TeamSearch';
+import { useHttpClient } from 'hooks/http-hook';
 import './index.css';
 
 const Hierarchy = () => {

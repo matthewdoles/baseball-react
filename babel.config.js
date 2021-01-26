@@ -9,6 +9,7 @@ module.exports = {
           functions: './src/functions',
           hooks: './src/hooks',
           images: './src/images',
+          pages: './src/pages',
           shared: './src/shared',
         },
       },
