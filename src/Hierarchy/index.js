@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
+import ErrorModal from 'shared/ErrorModal';
 import Navigation from '../shared/Navigation';
 import TeamHierarchy from './components/TeamHierarchy';
 import TeamSelection from './components/TeamSelection';
@@ -9,11 +10,12 @@ import { useHttpClient } from '../hooks/http-hook';
 import './index.css';
 
 const Hierarchy = () => {
-  const { isLoading, sendRequest } = useHttpClient();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [allAffiliates, setAllAffiliates] = useState(null);
   const [selectableTeams, setSelectableTeams] = useState(null);
   const [selectedTeam, setSelectedTeam] = useState('MLB');
   const [filteredTeams, setFilteredTeams] = useState();
+  const [showError, setShowError] = useState();
 
   const fetchTeams = useCallback(async () => {
     let responseData;
@@ -25,13 +27,17 @@ const Hierarchy = () => {
             : 'https://baseball-affiliates.herokuapp.com/teams/affiliates',
         );
         sessionStorage.setItem('affiliates', JSON.stringify(responseData));
-      } catch (error) {}
+      } catch (error) {
+        setShowError(true);
+      }
     } else {
       responseData = JSON.parse(sessionStorage.getItem('affiliates'));
     }
-    setAllAffiliates(responseData.teams);
-    setFilteredTeams(responseData.teams);
-    setSelectableTeams(responseData.teams.filter((team) => team.league === 'MLB'));
+    if (responseData) {
+      setAllAffiliates(responseData.teams);
+      setFilteredTeams(responseData.teams);
+      setSelectableTeams(responseData.teams.filter((team) => team.league === 'MLB'));
+    }
   }, [sendRequest]);
 
   useEffect(() => {
@@ -76,6 +82,21 @@ const Hierarchy = () => {
         <div class="pt-5">
           <Spinner animation="border" />
         </div>
+      )}
+      {error && (
+        <ErrorModal
+          show={showError}
+          title={'Error!'}
+          children={
+            <p>
+              Sorry! Trouble loading teams right now. Please reload and try again.
+            </p>
+          }
+          buttonText={'Reload'}
+          link={'/hierarchy'}
+          variant={'btn-danger'}
+          onClick={clearError}
+        />
       )}
       {!isLoading && filteredTeams && selectableTeams && (
         <>

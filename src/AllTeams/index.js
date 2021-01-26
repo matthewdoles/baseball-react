@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 import Division from './components/Division';
+import ErrorModal from 'shared/ErrorModal';
 import Navigation from 'shared/Navigation';
 import TeamCard from 'shared/TeamCard';
 import TeamSearch from 'shared/TeamSearch';
@@ -15,12 +16,13 @@ import {
 import './index.css';
 
 const AllTeams = () => {
-  const { isLoading, sendRequest } = useHttpClient();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [allTeams, setAllTeams] = useState();
   const [loadedTeams, setFilteredTeams] = useState();
   const [selectedLeague, setSelectedLeague] = useState('League');
   const [selectedFilter, setSelectedFilter] = useState('Alphabetical');
   const [divisionDetails, setDivisionDetails] = useState();
+  const [showError, setShowError] = useState();
 
   const fetchTeams = useCallback(async () => {
     let responseData;
@@ -32,12 +34,16 @@ const AllTeams = () => {
             : 'https://baseball-affiliates.herokuapp.com/teams/',
         );
         sessionStorage.setItem('teams', JSON.stringify(responseData));
-      } catch (error) {}
+      } catch (error) {
+        setShowError(true);
+      }
     } else {
       responseData = JSON.parse(sessionStorage.getItem('teams'));
     }
-    setAllTeams(responseData.teams);
-    setFilteredTeams(responseData.teams);
+    if (responseData) {
+      setAllTeams(responseData.teams);
+      setFilteredTeams(responseData.teams);
+    }
   }, [sendRequest]);
 
   useEffect(() => {
@@ -168,6 +174,21 @@ const AllTeams = () => {
         <div class="pt-5">
           <Spinner animation="border" />
         </div>
+      )}
+      {error && (
+        <ErrorModal
+          show={showError}
+          title={'Error!'}
+          children={
+            <p>
+              Sorry! Trouble loading teams right now. Please reload and try again.
+            </p>
+          }
+          buttonText={'Reload'}
+          link={'/'}
+          variant={'btn-danger'}
+          onClick={clearError}
+        />
       )}
       {!isLoading && loadedTeams && (
         <>
