@@ -1,16 +1,25 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-const ErrorModal = (props) => {
+const ErrorModal = ({
+  show,
+  onHide,
+  title,
+  children,
+  variant,
+  link,
+  onClick,
+  buttonText,
+}) => {
   return (
-    <Modal show={props.show} onHide={props.onHide}>
+    <Modal show={show} onHide={onHide} centered>
       <Modal.Header>
-        <Modal.Title>{props.title}</Modal.Title>
+        <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>{props.children}</Modal.Body>
+      <Modal.Body>{children}</Modal.Body>
       <Modal.Footer>
-        <Button variant={props.variant} href={props.link} onClick={props.onClick}>
-          {props.buttonText}
+        <Button className={variant} href={link} onClick={onClick}>
+          {buttonText}
         </Button>
       </Modal.Footer>
     </Modal>

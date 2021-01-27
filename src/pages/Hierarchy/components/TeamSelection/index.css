@@ -1,16 +1,10 @@
 .teamSelect {
   background-color: white;
   z-index: 100;
-  position: -webkit-sticky;
   position: sticky;
   top: 50px;
-  margin-bottom: 70px;
   border-top: 2px solid #007bff;
   border-bottom: 2px solid #007bff;
-}
-.teamSelectList {
-  padding: 0px;
-  margin: 0 auto;
 }
 
 .teamSelectList img {

@@ -1,11 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import './index.css';
 
-const Map = (props) => {
+const Map = ({ lng, lat, zoom, className, style }) => {
   const mapRef = useRef();
-
-  const { lng, lat, zoom } = props;
 
   useEffect(() => {
     const googleScript = document.getElementById('google-map-script');
@@ -14,7 +12,6 @@ const Map = (props) => {
         center: { lng, lat },
         zoom: zoom,
       });
-
       new window.google.maps.Marker({ position: { lng, lat }, map: map });
     };
 
@@ -27,9 +24,7 @@ const Map = (props) => {
     });
   }, [lat, lng, zoom]);
 
-  return (
-    <div ref={mapRef} className={`Map ${props.className}`} style={props.style}></div>
-  );
+  return <div ref={mapRef} className={`Map ${className}`} style={style}></div>;
 };
 
 export default Map;

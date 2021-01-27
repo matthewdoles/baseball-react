@@ -5,6 +5,7 @@
       "functions": ["functions"],
       "hooks": ["hooks"],
       "images": ["images"],
+      "pages": ["pages"],
       "shared": ["shared"]
     }
   }

@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
-import AllTeams from './AllTeams';
-import TeamDetails from './TeamDetails';
-import Hierarchy from './Hierarchy';
+import AllTeams from 'pages/AllTeams';
+import TeamDetails from 'pages/TeamDetails';
+import Hierarchy from 'pages/Hierarchy';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 

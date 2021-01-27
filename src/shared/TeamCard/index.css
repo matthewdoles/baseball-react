@@ -7,7 +7,6 @@
   min-width: 300px;
   max-width: 300px;
   display: inline-flex !important;
-  margin: 7px;
   border: none !important;
   border-radius: 25px !important;
 }
@@ -15,8 +14,6 @@
 .teamCardImage {
   width: 90%;
   height: 300px;
-  padding: 15px;
-  margin: auto;
   border-top-left-radius: 25px !important;
   border-top-right-radius: 25px !important;
 }

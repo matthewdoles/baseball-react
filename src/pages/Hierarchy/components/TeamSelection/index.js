@@ -2,26 +2,26 @@ import React from 'react';
 
 import './index.css';
 
-const TeamSelection = (props) => {
+const TeamSelection = ({ teamSelected, teams }) => {
   return (
-    <div className="teamSelect">
-      <ul className="teamSelectList">
+    <div className="mb-3 teamSelect">
+      <ul className="m-auto p-0 teamSelectList">
         <img
-          src={require('../../../images/Leagues/MLB.png')}
+          src={require('images/Leagues/MLB.png')}
           alt=""
           id="MLB"
           value="MLB"
-          onClick={props.teamSelected}
+          onClick={teamSelected}
           className="selectedTeam"
         />
-        {props.teams.map((team) => (
+        {teams.map((team) => (
           <img
-            src={require(`../../../images/${team.photo}`)}
+            src={require(`images/${team.photo}`)}
             alt=""
             key={team.name}
             id={team.name}
             value={team.name}
-            onClick={props.teamSelected}
+            onClick={teamSelected}
           />
         ))}
       </ul>

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
-import Map from '../shared/Map';
-import ErrorModal from '../shared/ErrorModal';
-import Navigation from '../shared/Navigation';
+import Map from 'shared/Map';
+import ErrorModal from 'shared/ErrorModal';
+import Navigation from 'shared/Navigation';
 import TeamDetailsHeader from './components/TeamDetailsHeader';
 import TeamDetailsCard from './components/TeamDetailsCard';
 import { Card } from 'react-bootstrap';
-import { useHttpClient } from '../hooks/http-hook';
+import { useHttpClient } from 'hooks/http-hook';
 import './index.css';
 
 const TeamDetails = () => {
@@ -63,7 +63,7 @@ const TeamDetails = () => {
                   <Card.Img
                     variant="top"
                     className="TeamLogoImage"
-                    src={require(`../images/${selectedTeam.photo}`)}
+                    src={require(`images/${selectedTeam.photo}`)}
                     style={{
                       backgroundColor: selectedTeam.color,
                     }}
