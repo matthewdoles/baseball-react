@@ -42,7 +42,7 @@ const Hierarchy = () => {
 
   useEffect(() => {
     fetchTeams();
-  }, [sendRequest]);
+  }, [fetchTeams]);
 
   const onTeamSelected = (event) => {
     const teamLogo = document.getElementById(selectedTeam);
