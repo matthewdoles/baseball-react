@@ -10,7 +10,7 @@ const TeamCard = ({ name, est, url, photo }) => {
       <Card className="m-2 teamCard">
         <Card.Img
           variant="top"
-          className="p-3 teamCardImage"
+          className="p-3 m-auto teamCardImage"
           src={require(`images/${photo}`)}
         />
         <Card.Body className="teamCardBody">
