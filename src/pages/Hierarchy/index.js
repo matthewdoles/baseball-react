@@ -88,9 +88,7 @@ const Hierarchy = () => {
           show={showError}
           title={'Error!'}
           children={
-            <p>
-              Sorry! Trouble loading teams right now. Please reload and try again.
-            </p>
+            'Sorry! Trouble loading teams right now. Please reload and try again.'
           }
           buttonText={'Reload'}
           link={'/hierarchy'}
