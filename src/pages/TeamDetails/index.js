@@ -68,7 +68,7 @@ const TeamDetails = () => {
         />
       )}
       {!isLoading && selectedTeam !== null && (
-        <>
+        <div class="pb-3">
           <TeamDetailsHeader allTeams={allTeams} selectedTeam={selectedTeam} />
           <div className="m-auto teamDetailContainer">
             <div className="px-3 pt-3 r1">
@@ -145,7 +145,7 @@ const TeamDetails = () => {
               </div>
             </div>
           </div>
-        </>
+        </div>
       )}
     </>
   );

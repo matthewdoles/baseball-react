@@ -189,7 +189,7 @@ const AllTeams = () => {
         />
       )}
       {!isLoading && loadedTeams && (
-        <>
+        <div class="pb-3">
           <TeamSearch
             nameChange={onNameChange}
             filterAlphabetical={onFilterAlphabetical}
@@ -222,7 +222,7 @@ const AllTeams = () => {
                 />
               );
             })}
-        </>
+        </div>
       )}
     </>
   );
