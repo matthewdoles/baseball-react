@@ -3,15 +3,15 @@ import { Card } from 'react-bootstrap';
 
 import './index.css';
 
-const TeamDetailsCard = (props) => {
+const TeamDetailsCard = ({ children, color }) => {
   return (
     <Card.Header
       className="header"
       style={{
-        backgroundColor: props.color,
+        backgroundColor: color,
       }}
     >
-      {props.children}
+      {children}
     </Card.Header>
   );
 };

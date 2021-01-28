@@ -1,86 +1,61 @@
-.Container {
-  width: 100%;
+.teamDetailContainer {
+  width: 85%;
 }
 
-.Row1,
-.Row2 {
+.r1,
+.r2 {
   display: flex;
-  padding: 20px 20px 0px 20px;
-}
-
-.C1,
-.C2 {
-  width: 20%;
-  padding: 10px;
-}
-
-.C2 {
-  width: 80%;
-}
-
-.C4 {
   width: 100%;
-  padding: 10px;
 }
 
-.TeamDetailCard {
-  width: 100%;
-  height: 300px;
-  margin: auto;
-  border-radius: 25px !important;
-  font-size: 18px;
+.teamLogo {
+  min-width: 350px;
+  max-width: 350px;
 }
 
-.TeamDetailStadiun {
-  height: 500px;
-}
-
-.TeamLogoImage {
+.teamLogoImage {
   height: 100%;
   padding: 20px;
 }
 
-.DetailsBody {
+.teamDetails {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.teamStadium {
+  width: 100%;
+  padding: 10px;
+}
+
+.teamDetailCard {
+  height: 350px;
+  border-radius: 25px !important;
+  font-size: 20px;
+}
+
+.teamDetailStadiun {
+  height: 500px;
+}
+
+.teamDetailsBody {
   display: flex;
 }
 
-.DetailsLeft,
-.DetailsRight {
+.teamDetailsLeft,
+.teamDetailsRight {
   padding: 0 20px;
   width: 50%;
   text-align: left;
 }
 
-@media (min-width: 1200px) and (max-width: 1450px) {
-  .C1,
-  .C2 {
-    width: 25%;
-    padding: 10px;
-  }
-
-  .C2 {
-    width: 75%;
-  }
+.teamDetailsField {
+  display: flex;
 }
 
-@media (min-width: 875px) and (max-width: 1200px) {
-  .C1,
-  .C2 {
-    width: 30%;
-    padding: 10px;
-  }
-
-  .C2 {
-    width: 70%;
-  }
-}
-
-@media (max-width: 875px) {
-  .Container {
-    width: 100%;
-  }
-  .Row1,
-  .Row2 {
+@media (max-width: 1150px) {
+  .r1,
+  .r2 {
     display: block;
     padding: 5px;
     margin: auto;
@@ -88,9 +63,16 @@
     justify-content: center;
     text-align: center;
   }
-  .C1,
-  .C2,
-  .C4 {
+
+  .teamLogo {
+    min-width: 250px;
+    max-width: 250px;
+    padding: 10px;
+  }
+
+  .teamLogo,
+  .teamDetails,
+  .teamStadium {
     width: 95%;
     padding: 10px;
     margin: auto;
@@ -98,13 +80,22 @@
     justify-content: center;
     text-align: center;
   }
-  .C1 {
+
+  .teamLogo {
     width: 50%;
   }
-  .TeamDetailCard {
+
+  .teamDetailCard {
     height: auto;
   }
-  .TeamDetailStadiun {
+
+  .teamDetailStadiun {
     height: 500px;
+  }
+}
+
+@media (max-width: 800px) {
+  .teamDetailContainer {
+    width: 100%;
   }
 }

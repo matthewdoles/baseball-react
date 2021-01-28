@@ -180,9 +180,7 @@ const AllTeams = () => {
           show={showError}
           title={'Error!'}
           children={
-            <p>
-              Sorry! Trouble loading teams right now. Please reload and try again.
-            </p>
+            'Sorry! Trouble loading teams right now. Please reload and try again.'
           }
           buttonText={'Reload'}
           link={'/'}
@@ -191,7 +189,7 @@ const AllTeams = () => {
         />
       )}
       {!isLoading && loadedTeams && (
-        <>
+        <div class="pb-3">
           <TeamSearch
             nameChange={onNameChange}
             filterAlphabetical={onFilterAlphabetical}
@@ -224,7 +222,7 @@ const AllTeams = () => {
                 />
               );
             })}
-        </>
+        </div>
       )}
     </>
   );
