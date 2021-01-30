@@ -56,11 +56,9 @@ const TeamDetails = () => {
         <ErrorModal
           show={showError}
           title="Error"
-          buttonText="Close"
           variant="danger"
           buttonText={'Reload'}
           link={`/team/${teamName}`}
-          variant={'btn-danger'}
           onClick={() => setShowError(false)}
           children={
             'Sorry! Trouble loading that team right now. Please reload and try again.'

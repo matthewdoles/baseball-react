@@ -47,6 +47,7 @@
   padding: 0 20px;
   width: 50%;
   text-align: left;
+  word-wrap: break-word;
 }
 
 .teamDetailsField {
@@ -96,6 +97,16 @@
 
 @media (max-width: 800px) {
   .teamDetailContainer {
+    width: 100%;
+  }
+  .teamDetailsBody {
+    display: block;
+    padding: 10px;
+  }
+
+  .teamDetailsLeft,
+  .teamDetailsRight {
+    padding: 0px;
     width: 100%;
   }
 }

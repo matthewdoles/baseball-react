@@ -21,7 +21,6 @@ const Navigation = ({ allTeamsActive, hierarchyActive }) => {
 
   return (
     <Navbar bg="light" fixed="top" className="navigation">
-      <Navbar.Brand href="/">Baseball Affiliates</Navbar.Brand>
       <Navbar.Collapse className="conatiner-fluid">
         <Nav className="container-fluid">
           {pages.map((page) => (
