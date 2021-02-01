@@ -27,6 +27,18 @@ The [AllTeams](src/pages/AllTeams) page is the website's default home page. The 
 
 ##### Hierarchy
 
-The [Hierarchy](src/pages/Hierarchy) page lists the affiliate hierarchy for each MLB team. On larger device sizes, the page will render the [TeamSelection](src/pages/Hierarchy/TeamSelection) component which lists the team icons for all MLB teams in alphabetical order from left to right. Although by default it will show the organizational hierarchy for all teams, clicking on a team icon will filter results for that specific team. On smaller device sizes, the [TeamSearch](src/shared/TeamSearch/index.js) will render and allow the user to filter by text input. Each team's hierarchy is rendered in the resuable [TeamHierarchy](src/pages/Hierarchy/TeamHierarchy) component. On larger device sizes, the affiliate teams will be indented to indicate the overall level of the league the team plays in. On smaller devices, only the MLB team will render at full width and the remaining teams will be slightly indented. In either circumstance, the MLB team and their affiliates will be ordered by level from top to bottom.
+The [Hierarchy](src/pages/Hierarchy) page lists the affiliate hierarchy for each MLB team. On larger device sizes, the page will render the [TeamSelection](src/pages/Hierarchy/components/TeamSelection) component which lists the team icons for all MLB teams in alphabetical order from left to right. Although by default it will show the organizational hierarchy for all teams, clicking on a team icon will filter results for that specific team. On smaller device sizes, the [TeamSearch](src/shared/TeamSearch/index.js) will render and allow the user to filter by text input. Each team's hierarchy is rendered in the resuable [TeamHierarchy](src/pages/Hierarchy/components/TeamHierarchy) component. On larger device sizes, the affiliate teams will be indented to indicate the overall level of the league the team plays in. On smaller devices, only the MLB team will render at full width and the remaining teams will be slightly indented. In either circumstance, the MLB team and their affiliates will be ordered by level from top to bottom.
 
 ##### Team Detail
+
+The [TeamDetails](src/pages/TeamDetails) page is navigated to when clicking on either a [TeamCard](src/shared/TeamCard/index.js) on the [AllTeams](src/pages/AllTeams) page, or a list item (team) on the [TeamHierarchy](src/pages/Hierarchy/components/TeamHierarchy) component from the [Hierarchy](src/pages/Hierarchy) page. As self-described, the page gives details on the selected team such as year established, stadium, capacity, address, etc. The page also includes a [Map](src/shared/Map/index.js) component which uses the stadium's lattitude and logitude to plot the location on a Google Map. At the very top of the page is a [TeamDetailsHeader](src/pages/TeamDetails/components/TeamDetailsHeader) which allows the user to go to the next or previous team alphabetically or a random team altogether without having to navigate back to the TeamDetails or Hierarchy page.
+
+#### Components
+
+##### Navigation
+
+The [Navigation](src/shared/Navigation/index.js) component is on every page and contains two links for navigating between the [AllTeams](src/pages/AllTeams) and [Hierarchy](src/pages/Hierarchy) pages. In addition, the far right corner contains a question mark icon which opens a disclaimer modal in regards to the trademarks of Major League Baseball.
+
+##### ErrorModal
+
+The [ErrorModal](src/shared/ErrorModal/index.js) is used on each page to show an error mesasge in the event the [http-hook](src/hooks/http-hook.js) fails to fetch data from the backend.
