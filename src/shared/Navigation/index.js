@@ -42,7 +42,7 @@ const Navigation = ({ allTeamsActive, hierarchyActive }) => {
           buttonText="Close"
           onClick={() => setShowModal(false)}
           children={
-            'All trademarks and service marks are property of Major League Baseball. Their use on this site are not intended for commercial use or profit.'
+            'All trademarks and service marks are property of Major League Baseball. Thier use on this site are purely non-profit and recreational.'
           }
         />
       )}
