@@ -24,7 +24,11 @@ const Navigation = ({ allTeamsActive, hierarchyActive }) => {
       <Navbar.Collapse className="conatiner-fluid">
         <Nav className="container-fluid">
           {pages.map((page) => (
-            <Nav.Link className={page.active ? 'activeLink' : null} href={page.link}>
+            <Nav.Link
+              key={page.name}
+              className={page.active ? 'activeLink' : null}
+              href={page.link}
+            >
               {page.name}
             </Nav.Link>
           ))}
