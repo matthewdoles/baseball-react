@@ -15,7 +15,7 @@ it('renders error modal', () => {
     />,
   );
   expect(wrapper.props().show).toEqual(true);
-  expect(wrapper.props().buttonText).toEqual('Error!');
+  expect(wrapper.props().title).toEqual('Error!');
   expect(wrapper.props().buttonText).toEqual('Close');
   expect(wrapper.props().children).toEqual('Sample text');
 });

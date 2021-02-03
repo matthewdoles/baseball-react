@@ -9,7 +9,13 @@ it('renders navigation', () => {
   render(<Navigation allTeamsActive={true} />);
 });
 
-it('opens the navigation disclaimer modal then closes', () => {
+it('renders navigation with two links', () => {
+  const { getByText } = render(<Navigation allTeamsActive={true} />);
+  expect(getByText('All Teams').textContent).toBe('All Teams');
+  expect(getByText('Hierarchy').textContent).toBe('Hierarchy');
+});
+
+it('opens navigation disclaimer modal then closes', () => {
   const { getByText, getByTestId } = render(<Navigation allTeamsActive={true} />);
 
   fireEvent.click(getByText('?'));

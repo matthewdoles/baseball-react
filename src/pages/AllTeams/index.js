@@ -171,7 +171,7 @@ const AllTeams = () => {
     <>
       <Navigation allTeamsActive={true} />
       {isLoading && (
-        <div class="pt-5">
+        <div className="pt-5">
           <Spinner animation="border" />
         </div>
       )}
@@ -189,7 +189,7 @@ const AllTeams = () => {
         />
       )}
       {!isLoading && loadedTeams && (
-        <div class="pb-3">
+        <div className="pb-3">
           <TeamSearch
             nameChange={onNameChange}
             filterAlphabetical={onFilterAlphabetical}
