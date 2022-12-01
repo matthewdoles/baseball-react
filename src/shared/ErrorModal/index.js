@@ -16,7 +16,7 @@ const ErrorModal = ({
       <Modal.Header>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>{children}</Modal.Body>
+      <Modal.Body data-testid="error-modal-text">{children}</Modal.Body>
       <Modal.Footer>
         <Button className={variant} href={link} onClick={onClick}>
           {buttonText}

@@ -31,7 +31,7 @@ const AllTeams = () => {
         responseData = await sendRequest(
           process.env.NODE_ENV === 'development'
             ? 'http://localhost:5000/teams/'
-            : 'https://baseball-affiliates.herokuapp.com/teams/',
+            : 'https://baseball-node.onrender.com/teams',
         );
         sessionStorage.setItem('teams', JSON.stringify(responseData));
       } catch (error) {
@@ -171,7 +171,7 @@ const AllTeams = () => {
     <>
       <Navigation allTeamsActive={true} />
       {isLoading && (
-        <div class="pt-5">
+        <div className="pt-5">
           <Spinner animation="border" />
         </div>
       )}
@@ -189,7 +189,7 @@ const AllTeams = () => {
         />
       )}
       {!isLoading && loadedTeams && (
-        <div class="pb-3">
+        <div className="pb-3">
           <TeamSearch
             nameChange={onNameChange}
             filterAlphabetical={onFilterAlphabetical}
