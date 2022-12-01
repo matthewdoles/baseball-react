@@ -24,7 +24,7 @@ const Hierarchy = () => {
         responseData = await sendRequest(
           process.env.NODE_ENV === 'development'
             ? 'http://localhost:5000/teams/affiliates'
-            : 'https://baseball-affiliates.herokuapp.com/teams/affiliates',
+            : 'https://baseball-node.onrender.com/teams/affiliates',
         );
         sessionStorage.setItem('affiliates', JSON.stringify(responseData));
       } catch (error) {
