@@ -8,12 +8,7 @@ There are 30 teams in Major League Baseball, each one of those teams can have on
 
 #### URL
 
-- [baseballaffiliates.web.app](https://baseballaffiliates.web.app/)
-- [baseballaffiliates.firebaseapp.com](https://baseballaffiliates.firebaseapp.com/)
-
-#### Deployment
-
-The site is hosted on [Firebase](https://firebase.google.com/), and can be deployed on-demand via the CLI. However, there is a Github Action setup ([main.yml](/.github/workflows/main.yml)) to build and deploy the code to Firebase. Development is done on the develop branch, and then the Github Action is kicked off on merge with master.
+- [baseball-react.vercel.app](https://baseball-react.vercel.app)
 
 #### API
 
